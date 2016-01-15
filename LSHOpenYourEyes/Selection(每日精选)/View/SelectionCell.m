@@ -17,7 +17,12 @@
     [self.image setImageWithURL:[NSURL URLWithString:_model.cover.feed]];
     self.title.text = _model.title;
     
-    self.info.text = [NSString stringWithFormat:@"#%@ / %@",_model.category,_model.duration];
+    
+    NSInteger minute = [_model.duration integerValue] / 60;
+    
+    NSInteger second = [_model.duration integerValue] % 60;
+    
+    self.info.text = [NSString stringWithFormat:@"#%@ / %ld\' %ld\" ",_model.category,minute,second];
 }
 
 

@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 #import "VideoModel.h"
 #import "ListModel.h"
+#import "PageModel.h"
+#import "CurrentPageModel.h"
 
 @interface RequestManager()
 
@@ -35,15 +37,33 @@
     
     [self.manager GET:urlString parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-//          NSLog(@"%@",responseObject);
         //解析
-        NSArray *issueList = [self anlysisData:responseObject];
+    if([modelClass isSubclassOfClass:[CurrentPageModel class]]){
         
-        NSLog(@"%@", issueList);
+        CurrentPageModel *currentModel = [[self anlysisData:responseObject modelClass:modelClass]firstObject];
+
+//        NSLog(@"%@", currentModel);
         
-        complicate(YES,issueList);
+        complicate(YES,currentModel);
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }else if ([modelClass isSubclassOfClass:[PageModel class]]){
+        //直接返回二进制
+        complicate(YES,responseObject);
+        
+        
+    }else if([modelClass isSubclassOfClass:[ListModel class]]){
+        
+         NSArray *array = responseObject[@"itemList"];
+        
+        NSArray *listArray = [ListModel arrayOfModelsFromDictionaries:array];
+        
+//         NSLog(@"%@", listArray);
+        
+        complicate(YES, listArray);
+    }
+    }
+        
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"%@",error);
         
@@ -58,11 +78,12 @@
  *
  *  @return 数组
  */
--(NSArray *)anlysisData:(id) responseObject{
+-(NSArray *)anlysisData:(id) responseObject modelClass:(Class)modelClass{
     
-    NSArray *issueList = [responseObject[@"issueList"] firstObject][@"itemList"];
+    NSArray *array = responseObject[@"issueList"];
     
-    return [ListModel arrayOfModelsFromDictionaries:issueList];
+    //改动了一下 ,如果下回崩了可以找这里
+    return [modelClass arrayOfModelsFromDictionaries:array];
 
 }
 

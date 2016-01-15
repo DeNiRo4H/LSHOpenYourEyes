@@ -31,11 +31,11 @@
 
 @property(nonatomic, copy)NSString<Optional> *text;
 @property (nonatomic,copy)NSString<Optional> *tid;
-@property(nonatomic, copy)NSNumber<Optional> *date;//日期
-@property(nonatomic, copy)NSNumber<Optional> *idx;
+@property(nonatomic, strong)NSNumber<Optional> *date;//日期
+@property(nonatomic, strong)NSNumber<Optional> *idx;
 @property(nonatomic, copy)NSString<Optional> *title;//标题
 @property(nonatomic, copy)NSString<Optional> *kdescription;//描述
-@property(nonatomic, copy)NSString<Optional> *duration;//播放时长
+@property(nonatomic,strong)NSNumber<Optional> *duration;//播放时长
 @property(nonatomic, copy)NSString<Optional> *playUrl;//播放地址
 @property(nonatomic, copy)NSString<Optional> *category;//分类名
 
