@@ -1,26 +1,24 @@
 //
-//  BaseNavigationViewController.m
+//  DetailViewController.m
 //  LSHOpenYourEyes
 //
-//  Created by DeNiRo4H on 16-1-11.
+//  Created by DeNiRo4H on 16-1-16.
 //  Copyright (c) 2016年 LSH. All rights reserved.
 //
 
-#import "BaseNavigationViewController.h"
+#import "DetailViewController.h"
 
-@interface BaseNavigationViewController ()
+@interface DetailViewController ()
 
 @end
 
-@implementation BaseNavigationViewController
+@implementation DetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //没有效果......
-    self.navigationBar.titleTextAttributes = @{
-                                               NSFontAttributeName:[UIFont fontWithName:@"Snell Roundhand" size:20],
-                                               };
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

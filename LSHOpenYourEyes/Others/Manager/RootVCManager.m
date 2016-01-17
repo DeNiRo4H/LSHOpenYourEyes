@@ -36,7 +36,10 @@
         
         //根据名字得到navigation
         UINavigationController *na = [RootVCManager navigationWithClass:NSClassFromString(name) titles:titles[i]];
+        na.topViewController.title = titles[i];
         
+
+//
         //下面导航条上正常状态时的图片
         NSString *normalImage = imageNames[i];
         //下面导航条上被选中状态时的图片
@@ -70,7 +73,9 @@
 
     
     UIViewController *vc = [[className alloc]init];
-    vc.title = title;
+    
+//    vc.title = title;
+    NSLog(@"%@", [UIFont familyNames]);
 
     BaseNavigationViewController *baseNaVC = [[BaseNavigationViewController alloc]initWithRootViewController:vc];
   

@@ -119,7 +119,7 @@
     
    [UIView animateWithDuration:0.3 animations:^{
       //修改线的位置
-       self.lineView.frame = CGRectMake(button.frame.origin.x, self.frame.size.height - 10, button.frame.size.width, 3);
+       self.lineView.frame = CGRectMake(button.frame.origin.x, self.frame.size.height - 1, button.frame.size.width, 3);
        
    }];
     

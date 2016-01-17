@@ -32,6 +32,8 @@
 		4E8D57EF1C48D07800BA29A3 /* 音乐.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4E8D57E31C48D07800BA29A3 /* 音乐.jpeg */; };
 		4E8D57F01C48D07800BA29A3 /* 预告.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4E8D57E41C48D07800BA29A3 /* 预告.jpeg */; };
 		4E8D57F31C48DF1600BA29A3 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8D57F21C48DF1600BA29A3 /* TitleView.m */; };
+		4E8D57FA1C49EDDE00BA29A3 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8D57F81C49EDDE00BA29A3 /* DetailViewController.m */; };
+		4E8D57FB1C49EDDE00BA29A3 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E8D57F91C49EDDE00BA29A3 /* DetailViewController.xib */; };
 		4ECB056E1C437F4C006642C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB056D1C437F4C006642C0 /* main.m */; };
 		4ECB05711C437F4C006642C0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB05701C437F4C006642C0 /* AppDelegate.m */; };
 		4ECB05741C437F4C006642C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB05731C437F4C006642C0 /* ViewController.m */; };
@@ -143,6 +145,9 @@
 		4E8D57E41C48D07800BA29A3 /* 预告.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "预告.jpeg"; sourceTree = "<group>"; };
 		4E8D57F11C48DF1600BA29A3 /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
 		4E8D57F21C48DF1600BA29A3 /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
+		4E8D57F71C49EDDE00BA29A3 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		4E8D57F81C49EDDE00BA29A3 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		4E8D57F91C49EDDE00BA29A3 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		4ECB05681C437F4C006642C0 /* LSHOpenYourEyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LSHOpenYourEyes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECB056C1C437F4C006642C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4ECB056D1C437F4C006642C0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -388,6 +393,9 @@
 			children = (
 				4ECB06921C43A815006642C0 /* BaseViewController.h */,
 				4ECB06931C43A815006642C0 /* BaseViewController.m */,
+				4E8D57F71C49EDDE00BA29A3 /* DetailViewController.h */,
+				4E8D57F81C49EDDE00BA29A3 /* DetailViewController.m */,
+				4E8D57F91C49EDDE00BA29A3 /* DetailViewController.xib */,
 			);
 			path = BaseController;
 			sourceTree = "<group>";
@@ -859,6 +867,7 @@
 				4E8D57EB1C48D07800BA29A3 /* 时尚.jpeg in Resources */,
 				4ECB06A71C43BB35006642C0 /* hotRanking_press.png in Resources */,
 				4E8D57E61C48D07800BA29A3 /* 剧情.jpeg in Resources */,
+				4E8D57FB1C49EDDE00BA29A3 /* DetailViewController.xib in Resources */,
 				4ECB057C1C437F4C006642C0 /* LaunchScreen.xib in Resources */,
 				4ECB05791C437F4C006642C0 /* Images.xcassets in Resources */,
 				4E8D57EF1C48D07800BA29A3 /* 音乐.jpeg in Resources */,
@@ -924,6 +933,7 @@
 				4ECB06211C437F84006642C0 /* JSONValueTransformer.m in Sources */,
 				4ECB06151C437F84006642C0 /* FMDatabasePool.m in Sources */,
 				4ECB06131C437F84006642C0 /* FMDatabase.m in Sources */,
+				4E8D57FA1C49EDDE00BA29A3 /* DetailViewController.m in Sources */,
 				4ECB06011C437F84006642C0 /* AFSecurityPolicy.m in Sources */,
 				4ECB060C1C437F84006642C0 /* UIRefreshControl+AFNetworking.m in Sources */,
 				4E700BB71C45116D00E511F7 /* CoverModel.m in Sources */,

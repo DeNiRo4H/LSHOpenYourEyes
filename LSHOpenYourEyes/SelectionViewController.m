@@ -16,6 +16,7 @@
 #import "DJRefresh.h"//下拉上拉刷新
 #import "PageModel.h"
 #import "CurrentPageModel.h"
+#import "DetailViewController.h"
 
 static NSString *cellID = @"cellID";
 
@@ -146,7 +147,7 @@ static NSString *cellID = @"cellID";
             if(_pageFlag == 1){
                 [self.dataSource removeAllObjects];
             }
-           
+            
             [self.dataSource addObject:object];
            
             //刷新tableView
@@ -247,6 +248,24 @@ static NSString *cellID = @"cellID";
 
 }
 
+/**
+ *  选中某个cell的后跳转
+ *
+ */
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
+    DetailViewController *detail = [[DetailViewController alloc]init];
+    
+    //dataSource里面放的是一天的内容 ,注意:有些有六个数据,
+    
+    //详细页面记得要判断,不然的话容易报错
+    detail.dataSource = self.dataSource;
+    
+    [self.navigationController pushViewController:detail
+        animated:YES];
+    
+ 
+}
 
 
 

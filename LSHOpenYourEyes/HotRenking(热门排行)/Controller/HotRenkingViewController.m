@@ -25,7 +25,7 @@ typedef enum titleType{
     historical,
 }TitleType;
 
-@interface HotRenkingViewController ()<TitleViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface HotRenkingViewController ()<TitleViewDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property(nonatomic, strong)NSMutableArray *dataSources;
 
@@ -56,11 +56,11 @@ typedef enum titleType{
  */
 -(void)createTitleView{
     //不知道这个位置怎么搞得???
-    _titleView = [[TitleView alloc]initWithFrame:CGRectMake(0, -64,KscreenWidth, 150)];
-    _titleView.titles = @[@"周排行",@"月排行",@"总排行"];
+    self.titleView = [[TitleView alloc]initWithFrame:CGRectMake(0, -60,KscreenWidth, 150)];
+   self.titleView.titles = @[@"周排行",@"月排行",@"总排行"];
     //建立代理
-    _titleView.delegate = self;
-    [self.view addSubview:_titleView];
+    self.titleView.delegate = self;
+    [self.view addSubview:self.titleView];
 }
 
 
@@ -69,7 +69,7 @@ typedef enum titleType{
  */
 -(void)createScrollView{
 
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, KscreenWidth, KscreenHeight-64)];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,90, KscreenWidth, KscreenHeight-90)];
     //翻页
     self.scrollView.pagingEnabled = YES;
     
@@ -79,7 +79,7 @@ typedef enum titleType{
     //设置scrollview的大小
     self.scrollView.contentSize = CGSizeMake(KscreenWidth*3, self.scrollView.frame.size.height);
     
-//    self.scrollView.delegate = self;
+    self.scrollView.delegate = self;
     
     [self.view addSubview:self.scrollView];
 
@@ -102,6 +102,8 @@ typedef enum titleType{
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(i*self.scrollView.frame.size.width, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height) style:UITableViewStylePlain];
         
         tableView.tag = i + tableViewTag;
+        
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         tableView.rowHeight = 230;
         
@@ -165,13 +167,31 @@ typedef enum titleType{
 
 }
 
+#pragma mark - scrollviewdelegate协议方法
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+ 
+    if (self.scrollView == scrollView) {
+        
+        NSInteger index = self.scrollView.contentOffset.x / self.scrollView.frame.size.width;
+        
+//        [self.titleView selectIndex:index];
 
+        [self.titleView clickButton:self.titleView.buttons[index]];
+    }
+    
+}
 
 
 
 #pragma mark titleViewDelegate 协议方法
 -(void)titleView:(TitleView *)view selectIndex:(NSInteger)index{
       NSLog(@"选中第%ld个button",index);
+    self.scrollView.contentOffset = CGPointMake(index * WIDTH, 0);
+    
+//    if([self.dataSources[index]count] == 0){//如果数组数据为空时,重新请求
+    
+        [self loadDataWithType:(TitleType)index];
+//    }
 }
 
 
