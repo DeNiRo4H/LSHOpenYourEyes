@@ -75,7 +75,7 @@
     UIViewController *vc = [[className alloc]init];
     
 //    vc.title = title;
-    NSLog(@"%@", [UIFont familyNames]);
+//    NSLog(@"%@", [UIFont familyNames]);
 
     BaseNavigationViewController *baseNaVC = [[BaseNavigationViewController alloc]initWithRootViewController:vc];
   

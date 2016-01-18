@@ -93,6 +93,7 @@
 		4ECB06AB1C43BB35006642C0 /* special.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECB06A41C43BB35006642C0 /* special.png */; };
 		4ECB06AC1C43BB35006642C0 /* special_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECB06A51C43BB35006642C0 /* special_press.png */; };
 		4ECB06B11C43CC08006642C0 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB06B01C43CC08006642C0 /* BaseModel.m */; };
+		4ECDEED01C4CFD4D0063984C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ECDEECF1C4CFD4D0063984C /* MediaPlayer.framework */; };
 		4ECF62FA1C44D418004F966C /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECF62F91C44D418004F966C /* RequestManager.m */; };
 		4ECF62FE1C44E025004F966C /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECF62FC1C44E025004F966C /* SelectionCell.m */; };
 		4ECF62FF1C44E025004F966C /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECF62FD1C44E025004F966C /* SelectionCell.xib */; };
@@ -263,6 +264,7 @@
 		4ECB06AE1C43CBBD006642C0 /* ScreenMarco.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScreenMarco.h; sourceTree = "<group>"; };
 		4ECB06AF1C43CC08006642C0 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseModel.h; path = "../../Special(专题)/Model/BaseModel.h"; sourceTree = "<group>"; };
 		4ECB06B01C43CC08006642C0 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseModel.m; path = "../../Special(专题)/Model/BaseModel.m"; sourceTree = "<group>"; };
+		4ECDEECF1C4CFD4D0063984C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		4ECF62F81C44D418004F966C /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
 		4ECF62F91C44D418004F966C /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
 		4ECF62FB1C44E025004F966C /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionCell.h; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ECDEED01C4CFD4D0063984C /* MediaPlayer.framework in Frameworks */,
 				4ECB06231C43819F006642C0 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -734,6 +737,7 @@
 		4ECB06241C4381E8006642C0 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				4ECDEECF1C4CFD4D0063984C /* MediaPlayer.framework */,
 				4ECB06221C43819F006642C0 /* libsqlite3.0.dylib */,
 			);
 			path = lib;

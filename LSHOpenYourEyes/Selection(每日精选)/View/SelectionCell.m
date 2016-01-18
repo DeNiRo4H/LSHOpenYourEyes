@@ -15,6 +15,10 @@
 
     _model = model;
     [self.image setImageWithURL:[NSURL URLWithString:_model.cover.feed]];
+    
+    self.image.layer.cornerRadius = 8;
+    self.image.layer.masksToBounds = YES;
+    
     self.title.text = _model.title;
     
     

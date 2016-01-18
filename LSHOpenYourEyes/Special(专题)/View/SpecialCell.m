@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.backImage.layer.cornerRadius = 5;
+    self.backImage.layer.masksToBounds = YES;
 }
 
 @end

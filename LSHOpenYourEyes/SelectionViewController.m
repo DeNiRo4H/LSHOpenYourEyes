@@ -54,6 +54,7 @@ static NSString *cellID = @"cellID";
     
     _pageFlag = 1;//初始值
     _day = 1;
+
     //设置背景色
     self.view.backgroundColor = [UIColor grayColor];
 
@@ -113,20 +114,9 @@ static NSString *cellID = @"cellID";
 
         //jsonModel 解析得到
         PageModel *model = [[PageModel alloc]initWithDictionary:object error:nil];
-        
-//        CurrentPageModel *currentModel = [[CurrentPageModel alloc]init];
-//        
-//        NSDictionary *dict = [object[@"issueList"] firstObject];
-//        currentModel = [currentModel initWithDictionary:dict error:nil];
-//        model.currentModel = currentModel;
-//        
-//        //当前天的日期
-//        _date = model.currentModel.publishTime;
 
         //得到下一页
         _nextPage = model.nextPageUrl;
-        
-        
         
     } modelClass:[PageModel class]];
     
@@ -242,6 +232,9 @@ static NSString *cellID = @"cellID";
     }
     VideoModel *model = list.data;
     
+    //cell被选中的风格
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     cell.model = model;
     
     return cell;
@@ -259,7 +252,13 @@ static NSString *cellID = @"cellID";
     //dataSource里面放的是一天的内容 ,注意:有些有六个数据,
     
     //详细页面记得要判断,不然的话容易报错
-    detail.dataSource = self.dataSource;
+   CurrentPageModel *currentPageModel = self.dataSource[indexPath.section];
+    
+//    NSLog(@"%@",currentPageModel);
+    
+    //这一天的数据传过去
+    detail.currentModel = currentPageModel;
+    detail.index = indexPath.row;
     
     [self.navigationController pushViewController:detail
         animated:YES];
