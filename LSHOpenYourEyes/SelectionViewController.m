@@ -46,7 +46,6 @@ static NSString *cellID = @"cellID";
 
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -66,15 +65,15 @@ static NSString *cellID = @"cellID";
 #pragma mark - 创建tableview
 -(void)createTableView{
         
-        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,64, WIDTH, HEITHT +-110) style:UITableViewStylePlain];
         //cell的高度
         _tableView.rowHeight = 230;
         //代理关系
         _tableView.dataSource = self;
         _tableView.delegate = self;
     
-    
-//    self.automaticallyAdjustsScrollViewInsets = NO;
+    //自动调整tableview和导航条的位置
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     //分割线去掉
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -287,11 +286,7 @@ static NSString *cellID = @"cellID";
         NSString *nextpage = _nextPage;
         
          _pageFlag ++;
-        
-        
-//        NSLog(@"%ld", _pageFlag);
-//        NSLog(@"%@", nextpage);
-        
+
         //获取当前页的日期和下一页的url
         [self FirstLoadDataWithUrl:_nextPage parameters:nil];
         

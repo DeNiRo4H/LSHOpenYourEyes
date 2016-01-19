@@ -32,7 +32,7 @@
 //创意  运动  旅行 剧情 动画 广告
 //音乐  开胃  预告 综合 记录 时尚
 
-#define specialUrl  @"http://baobab.wandoujia.com/api/v3/videos";
+#define specialUrl  @"http://baobab.wandoujia.com/api/v3/videos"
 
 
 /* 热门排行:

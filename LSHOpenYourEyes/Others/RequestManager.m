@@ -26,6 +26,7 @@
     if(_manager == nil){
     
         _manager = [AFHTTPRequestOperationManager manager];
+//        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html"@"application/json", nil];
     }
     return _manager;
 }
@@ -33,7 +34,7 @@
 
 -(void)requestWithUrl:(NSString *)urlString parameters:(NSDictionary *)dic complicate:(Complicate)complicate modelClass:(Class)modelClass{
     
-    
+//    NSLog(@"%@", dic);
     
     [self.manager GET:urlString parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

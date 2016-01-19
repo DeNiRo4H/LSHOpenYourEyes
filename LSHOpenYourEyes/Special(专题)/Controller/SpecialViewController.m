@@ -8,6 +8,9 @@
 
 #import "SpecialViewController.h"
 #import "SpecialCell.h"
+#import "ScreenMarco.h"
+#import "DetailSpecailViewController.h"
+
 
 static NSString *cellID = @"cellID";
 @interface SpecialViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
@@ -37,7 +40,7 @@ static NSString *cellID = @"cellID";
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     
     //cell的大小  一行放几个cell 根据他的大小
-    flowLayout.itemSize = CGSizeMake(186, 186);
+    flowLayout.itemSize = CGSizeMake(KscreenWidth/2-2, KscreenWidth/2-2);
     //上左下右
 //    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
@@ -70,6 +73,8 @@ static NSString *cellID = @"cellID";
     NSString *path = [[NSBundle mainBundle]pathForResource:_nameArray[indexPath.row] ofType:@"jpeg"];
     UIImage *image  =[UIImage imageWithContentsOfFile:path];
     
+    //cell被选中的风格
+    
     cell.backImage.image = image;
     
     cell.name.text = _nameArray[indexPath.row];
@@ -77,6 +82,17 @@ static NSString *cellID = @"cellID";
     
     return cell;
 }
+//选中某个cell的时候
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    DetailSpecailViewController *detailSpecail = [[DetailSpecailViewController alloc]init];
+    
+    detailSpecail.categoryName = _nameArray[indexPath.row];
+    //推送到专题中的详情页面
+    [self.navigationController pushViewController:detailSpecail animated:YES];
+
+}
+
 
 
 @end

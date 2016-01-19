@@ -16,7 +16,7 @@
 
 @property(nonatomic, copy)NSString<Optional> *nextPageUrl;
 
-@property NSInteger nextPublishTime;
+@property (nonatomic, strong)NSNumber<Optional> *nextPublishTime;
 
 //@property NSInteger date;
 //

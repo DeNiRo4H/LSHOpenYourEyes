@@ -18,5 +18,7 @@
 
 @property(nonatomic,assign) NSInteger index;
 
+@property(nonatomic, strong)NSMutableArray *dataSource;
+
 
 @end
