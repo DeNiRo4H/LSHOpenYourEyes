@@ -11,7 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #define SPACE_WIDTH 15
 #define SFXButton 25
-#define NAMELABEL 30
+#define NAMELABEL 45
 
 @implementation LSHView
 
@@ -68,14 +68,18 @@
     
     //分享 收藏 下载
     self.collect = [[UIButton alloc]initWithFrame:CGRectMake(60, self.content.frame.origin.y +140, SFXButton, SFXButton)];
-    self.collectLabel = [[UILabel alloc]initWithFrame:CGRectMake(60+SFXButton+SPACE_WIDTH, self.content.frame.origin.y +140, NAMELABEL, NAMELABEL)];
-    self.collectLabel.text = @"2222";
+    [self.collect addTarget:self action:@selector(collectClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.collectLabel = [[UILabel alloc]initWithFrame:CGRectMake(60+SFXButton+SPACE_WIDTH, self.content.frame.origin.y +130, NAMELABEL, NAMELABEL)];
+
     
     self.share = [[UIButton alloc]initWithFrame:CGRectMake(60+SFXButton+2*SPACE_WIDTH +NAMELABEL, self.content.frame.origin.y +140,SFXButton, SFXButton)];
-    self.shareLable = [[UILabel alloc]initWithFrame:CGRectMake(60+2*SFXButton+3*SPACE_WIDTH +NAMELABEL, self.content.frame.origin.y +140, NAMELABEL, NAMELABEL)];
+    self.shareLable = [[UILabel alloc]initWithFrame:CGRectMake(60+2*SFXButton+3*SPACE_WIDTH +NAMELABEL, self.content.frame.origin.y +130, NAMELABEL, NAMELABEL)];
+    [self.share addTarget:self action:@selector(shareClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.downLoad = [[UIButton alloc]initWithFrame:CGRectMake(60+2*SFXButton+4*SPACE_WIDTH +2*NAMELABEL, self.content.frame.origin.y +140, SFXButton, SFXButton)];
-    self.downLoadLabel = [[UILabel alloc]initWithFrame:CGRectMake(60+3*SFXButton+5*SPACE_WIDTH +2*NAMELABEL, self.content.frame.origin.y +140, NAMELABEL, NAMELABEL)];
+    self.downLoadLabel = [[UILabel alloc]initWithFrame:CGRectMake(60+3*SFXButton+5*SPACE_WIDTH +2*NAMELABEL, self.content.frame.origin.y +130, NAMELABEL, NAMELABEL)];
+    [self.downLoad addTarget:self action:@selector(downLoadClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:self.backImage];
     [self addSubview:self.imageView];
@@ -100,6 +104,32 @@
         [self.delegate viewOnClick:button];
     }
 
+}
+
+//收藏
+-(void)collectClick:(UIButton *)button{
+    
+    if([self.delegate respondsToSelector:@selector(viewOnClick:)]){
+        
+        [self.delegate viewOnClickWithCollection:button];
+    }
+}
+//分享
+-(void)shareClick:(UIButton *)button{
+    
+    if([self.delegate respondsToSelector:@selector(viewOnClick:)]){
+        
+        [self.delegate viewOnClickWithShare:button];
+    }
+}
+
+//缓存
+-(void)downLoadClick:(UIButton *)button{
+    
+    if([self.delegate respondsToSelector:@selector(viewOnClick:)]){
+        
+        [self.delegate viewOnClickWithDownLoad:button];
+    }
 }
 
 

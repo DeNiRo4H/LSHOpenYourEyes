@@ -30,7 +30,7 @@
 @interface VideoModel : BaseModel
 
 @property(nonatomic, copy)NSString<Optional> *text;
-@property (nonatomic,copy)NSString<Optional> *tid;
+@property (nonatomic,copy)NSNumber<Optional> *tid;
 @property(nonatomic, strong)NSNumber<Optional> *date;//日期
 @property(nonatomic, strong)NSNumber<Optional> *idx;
 @property(nonatomic, copy)NSString<Optional> *title;//标题

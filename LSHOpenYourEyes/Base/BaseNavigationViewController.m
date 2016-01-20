@@ -17,10 +17,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //没有效果......
-    self.navigationBar.titleTextAttributes = @{
-                                               NSFontAttributeName:[UIFont fontWithName:@"Snell Roundhand" size:20],
-                                               };
+    //没有效果.? 坑爹的,只对英文有效果....歧视我们大天朝吗
+//    self.navigationBar.titleTextAttributes = @{
+//        NSFontAttributeName:[UIFont fontWithName:@"Snell Roundhand" size:21],[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0]
+//                                  };
+        NSShadow *shadow = [[NSShadow alloc] init];
+        shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+        shadow.shadowOffset = CGSizeMake(0, 1);
+        [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+            [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,shadow, NSShadowAttributeName,
+                [UIFont fontWithName:@ "Snell Roundhand"  size:25.0], NSFontAttributeName, nil]];
+
+   //添加导航栏左侧的item, 没法显示......
+    UIImage *image = [UIImage imageNamed:@"sanheng.png"];
+//    UIImage *lImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain  target:self action:@selector(onClick:)];
+//    self.navigationController.navigationItem.leftBarButtonItem = item;
+    self.navigationItem.leftBarButtonItem = item;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

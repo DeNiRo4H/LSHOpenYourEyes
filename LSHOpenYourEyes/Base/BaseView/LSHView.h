@@ -13,6 +13,11 @@
 //点击按钮发生的事件
 -(void)viewOnClick:(UIButton *)Button;
 
+-(void)viewOnClickWithCollection:(UIButton *)button;
+
+-(void)viewOnClickWithShare:(UIButton *)button;
+
+-(void)viewOnClickWithDownLoad:(UIButton *)button;
 @end
 
 

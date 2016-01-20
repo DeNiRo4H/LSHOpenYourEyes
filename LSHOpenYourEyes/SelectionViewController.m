@@ -71,6 +71,7 @@ static NSString *cellID = @"cellID";
         //代理关系
         _tableView.dataSource = self;
         _tableView.delegate = self;
+    _tableView.backgroundColor = [UIColor grayColor];
     
     //自动调整tableview和导航条的位置
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -233,6 +234,7 @@ static NSString *cellID = @"cellID";
     
     //cell被选中的风格
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor grayColor];
     
     cell.model = model;
     

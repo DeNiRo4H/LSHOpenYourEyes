@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "RootVCManager.h"
+#import "UMSocial.h"
+#import "MagicalRecord.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +20,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+     //创建数据库
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"MYVedio.sqlite"];
+    
+    NSLog(@"%@",NSHomeDirectory());
+    
+    
+    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -25,6 +34,19 @@
     
     self.window.rootViewController = [RootVCManager rootVC];
     
+    //设置状态栏的样式
+//    UIStatusBarStyleLightContent- 白色
+    //默认是黑色
+    //在ios7之前，状态栏和导航栏是分开的，而从ios7开始状态栏和导航栏交织在一起了，状态栏变为透明，导航栏的高度变为44+20=64：
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+    
+    //注册社会化分享
+    [UMSocialData setAppKey:@"568485cfe0f55a04ae004a51"];
+    
+    
+
+
     return YES;
 }
 

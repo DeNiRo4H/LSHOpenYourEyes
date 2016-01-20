@@ -12,9 +12,9 @@
 
 @interface ConsumptionModel : BaseModel
 
-@property(nonatomic, copy)NSString<Optional> *collectionCount;//收藏的次数
-@property(nonatomic, copy)NSString<Optional> *playCount;//播放的次数
-@property(nonatomic, copy)NSString<Optional> *replyCount;//回复的次数
-@property(nonatomic, copy)NSString<Optional> *shareCount;//分享次数
+@property(nonatomic, copy)NSNumber<Optional> *collectionCount;//收藏的次数
+@property(nonatomic, copy)NSNumber<Optional> *playCount;//播放的次数
+@property(nonatomic, copy)NSNumber<Optional> *replyCount;//回复的次数
+@property(nonatomic, copy)NSNumber<Optional> *shareCount;//分享次数
 
 @end

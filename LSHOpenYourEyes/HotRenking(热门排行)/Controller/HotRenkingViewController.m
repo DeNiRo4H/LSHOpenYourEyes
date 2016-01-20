@@ -13,6 +13,7 @@
 #import "UrlFile.h"
 #import "ListModel.h"
 #import "VideoModel.h"
+#import "DetailViewController.h"
 
 
 #define tableViewTag 40
@@ -109,6 +110,7 @@ typedef enum titleType{
         
         tableView.delegate = self;
         tableView.dataSource = self;
+        tableView.backgroundColor = [UIColor grayColor];
         
         //注册
         [tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelectionCell class]) bundle:nil] forCellReuseIdentifier:cellID];
@@ -160,7 +162,9 @@ typedef enum titleType{
 
     SelectionCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     ListModel *list = self.dataSources[tableView.tag - tableViewTag][indexPath.row];
-    
+    //被选中时的风格
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor grayColor];
     VideoModel *model = list.data;
     cell.model = model;
     return cell;
@@ -194,7 +198,16 @@ typedef enum titleType{
 //    }
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    DetailViewController *detail = [[DetailViewController alloc]init];
+    
+    detail.dataSource = self.dataSources[tableView.tag - tableViewTag];
+    detail.index = indexPath.row;
+    
+    [self.navigationController pushViewController:detail animated:YES];
+    
+}
 
 
 @end

@@ -126,12 +126,13 @@ typedef enum titleType{
         
         tableView.tag = i + tableViewTag;
         
-//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         tableView.rowHeight = 230;
         
         tableView.delegate = self;
         tableView.dataSource = self;
+        tableView.backgroundColor = [UIColor grayColor];
         //注册
         [tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SelectionCell class]) bundle:nil] forCellReuseIdentifier:cellID];
         
@@ -239,6 +240,7 @@ typedef enum titleType{
     
     //被选中后的风格
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor grayColor];
     VideoModel *model = list.data;
     cell.model = model;
     return cell;
@@ -294,7 +296,8 @@ typedef enum titleType{
     
     DetailViewController *detail = [[DetailViewController alloc]init];
     
-    detail.dataSource = self.dataSource;
+    detail.dataSource = self.dataSources[tableView.tag - tableViewTag];
+    detail.index = indexPath.row;
     
     [self.navigationController pushViewController:detail animated:YES];
 

@@ -13,12 +13,17 @@
 #import "LSHView.h"
 #import "LSHMoviePlayerViewController.h"
 #import "ConsumptionModel.h"
+#import "ZWUserOperationViewController.h"
+#import "UMSocial.h"
+#import "CoraDataManager.h"
+
 
 
 @interface DetailViewController ()<LSHViewOnClickDelegate,LSHMoviePlayerViewControllerDelegate>
 {
 
     NSInteger i;
+    NSInteger _collecCount;//收藏数
 }
 
 @property(nonatomic, strong)UIScrollView *scrollView;
@@ -80,10 +85,18 @@
     
     NSMutableArray *array = [NSMutableArray array];
     
-    self.scrollView.contentSize = CGSizeMake(5 * KscreenWidth ,KscreenHeight);
+    if(self.dataSource.count != 0){
     
+        self.scrollView.contentSize = CGSizeMake(self.dataSource.count * KscreenWidth, KscreenHeight);
+
+        [array addObjectsFromArray:self.dataSource];
+    }else{
+        
+        self.scrollView.contentSize = CGSizeMake(5 * KscreenWidth ,KscreenHeight);
+        [array addObjectsFromArray:self.currentModel.itemList];
+    }
     
-    for(ListModel *list in self.currentModel.itemList){
+    for(ListModel *list in array){
 
         if([list.type isEqualToString:@"textHeader"]){
             continue;
@@ -114,27 +127,34 @@
        view.info.text = [NSString stringWithFormat:@"#%@ / %ld\' %ld\" ",self.video.category,minute,second];
        view.info.textColor = [UIColor whiteColor];
        view.info.font = [UIFont systemFontOfSize:14];
+
         
             //设置内容
         view.content.text = self.video.kdescription;
         view.content.numberOfLines = 0;
         view.content.textColor = [UIColor whiteColor];
         view.content.font = [UIFont systemFontOfSize:14];
-        
+            
+            if([CoraDataManager isfavourite:self.video]){
+                [view.collect setImage:[UIImage imageNamed:@"yishoucang"] forState:UIControlStateNormal];
+            }else{
             //收藏
             [view.collect setImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
-            view.collectLabel.text = consumption.collectionCount;
-            view.collectLabel.textColor = [UIColor whiteColor];
+            }
             
+            view.collectLabel.text = [consumption.collectionCount stringValue];
+            view.collectLabel.textColor = [UIColor whiteColor];
+            view.collectLabel.font = [UIFont systemFontOfSize:13];
             //分享
             [view.share  setImage:[UIImage imageNamed:@"fenxiang"] forState:UIControlStateNormal];
-            view.shareLable.text = consumption.shareCount;
+            view.shareLable.text = [consumption.shareCount stringValue];
             view.shareLable.textColor = [UIColor whiteColor];
+            view.shareLable.font = [UIFont systemFontOfSize:13];
             //下载
             [view.downLoad setImage:[UIImage imageNamed:@"xiazai"] forState:UIControlStateNormal];
-            view.downLoadLabel.text = consumption.replyCount;
-            
+            view.downLoadLabel.text = [consumption.replyCount stringValue];
             view.downLoadLabel.textColor = [UIColor whiteColor];
+            view.downLoadLabel.font = [UIFont systemFontOfSize:13];
             
             
         [self.scrollView addSubview:view];
@@ -149,21 +169,33 @@
     
 }
 
-#pragma mark 实现协议方法
--(void)viewOnClick:(UIButton *)Button{
-   
-    LSHMoviePlayerViewController *movie = [[LSHMoviePlayerViewController alloc]init];
-    movie.delegate = self;
+//根据ScrollView偏移量得到对应的video
+-(VideoModel *)getVideoModelFromContentOffSet{
+
+    
     ListModel *list =[self.currentModel.itemList firstObject];
-    VideoModel *video = [[VideoModel alloc]init];
     NSInteger index = self.scrollView.contentOffset.x / KscreenWidth;
+    VideoModel *video = [[VideoModel alloc]init];
     //如果第一个类型为textHeader那么读取下一个
     if([list.type isEqualToString:@"textHeader"] ){
         list = self.currentModel.itemList[index+1];
     }else{
-    list = self.currentModel.itemList[index];
+        list = self.currentModel.itemList[index];
     }
      video = list.data;
+    return video;
+ }
+
+
+#pragma mark 实现协议方法
+-(void)viewOnClick:(UIButton *)Button{
+    
+    
+    LSHMoviePlayerViewController *movie = [[LSHMoviePlayerViewController alloc]init];
+    movie.delegate = self;
+    
+    VideoModel *video = [self getVideoModelFromContentOffSet];
+    
     movie.movieURL = video.playUrl;
     
      [self presentViewController:movie animated:YES completion:^{
@@ -172,6 +204,68 @@
      }];
     
 }
+
+
+-(void)viewOnClickWithCollection:(UIButton *)button{
+//    NSLog(@"点击收藏");
+    LSHView *view = (LSHView *)button.superview;
+    //根据偏移量得到对应的video
+    VideoModel *video = [self getVideoModelFromContentOffSet];
+    
+   
+    
+    static int flag = 1;
+    
+#warning 收藏有bug 待修改
+    
+    _collecCount = [video.consumption.collectionCount integerValue];
+
+    if(![CoraDataManager isfavourite:video]){//如果没有收藏点击之后就收藏
+    [view.collect setImage:[UIImage imageNamed:@"yishoucang"] forState:UIControlStateNormal];
+        
+        _collecCount ++;
+        view.collectLabel.text = [NSString stringWithFormat:@"%ld",_collecCount];
+        flag = 2;
+        //插入到数据库
+//        NSLog(@"%@",video.date) ;//插入数据库的时候 日期有问题
+        [CoraDataManager insertModel:video];
+        
+    }else{//否则收藏了就不变
+        [view.collect setImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
+        
+        view.collectLabel.text = [NSString stringWithFormat:@"%ld",_collecCount];
+        
+        flag = 2;
+        //从数据库中删除
+        [CoraDataManager deleteModel:video];
+    }
+
+}
+
+//新浪微博 豆瓣 等的分享
+-(void)viewOnClickWithShare:(UIButton *)button{
+
+    NSLog(@"点击分享");
+//    ZWUserOperationViewController *user = [[ZWUserOperationViewController alloc]init];
+//    [self presentViewController:user animated:YES completion:^{
+//        
+//    }];
+    
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"568485cfe0f55a04ae004a51"
+                                      shareText:@"你要分享的文字"
+                                     shareImage:[UIImage imageNamed:@"sanheng.png"]
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatSession,UMShareToQQ,UMShareToDouban,UMShareToFacebook,UMShareToInstagram,UMShareToTwitter,UMShareToLine,UMShareToWechatTimeline,nil]
+                                       delegate:nil];
+}
+
+-(void)viewOnClickWithDownLoad:(UIButton *)button{
+    NSLog(@"点击下载");
+
+
+}
+
+
 //电影结束之后会调用的协议方法
 -(void)moviePlayerDidFinished
 {

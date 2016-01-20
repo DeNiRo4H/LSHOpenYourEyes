@@ -52,8 +52,8 @@ static NSString *cellID = @"cellID";
     //设置代理
     _collection.delegate = self;
     _collection.dataSource = self;
-    
-    _collection.backgroundColor = [UIColor whiteColor];
+
+    _collection.backgroundColor = [UIColor grayColor];
     
     //注册
     [_collection registerNib:[UINib nibWithNibName:NSStringFromClass([SpecialCell class]) bundle:nil] forCellWithReuseIdentifier:cellID];
@@ -78,7 +78,7 @@ static NSString *cellID = @"cellID";
     cell.backImage.image = image;
     
     cell.name.text = _nameArray[indexPath.row];
-    
+    cell.backgroundColor = [UIColor grayColor];
     
     return cell;
 }
