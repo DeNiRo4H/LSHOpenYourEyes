@@ -14,6 +14,7 @@
 #import "ListModel.h"
 #import "VideoModel.h"
 #import "DetailViewController.h"
+#import "MyCenterViewController.h"
 
 
 #define tableViewTag 40
@@ -40,7 +41,7 @@ typedef enum titleType{
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self createNavigationItem];
     //创建titleview
     [self createTitleView];
 //    //创建滚动视图
@@ -51,7 +52,37 @@ typedef enum titleType{
     [self loadDataWithType:weekly];
     
     
+    
 }
+
+
+-(void)createNavigationItem{
+    
+    
+    //添加导航栏左侧的item,
+    UIImage *image = [UIImage imageNamed:@"sanheng.png"];
+    UIImage *lImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:lImage style:UIBarButtonItemStylePlain  target:self action:@selector(onClick:)];
+    
+    
+    self.navigationItem.leftBarButtonItem = item;
+}
+
+-(void)onClick:(UIBarButtonItem *)barButton{
+    
+    MyCenterViewController *center = [[MyCenterViewController alloc]init];
+    UINavigationController *na = [[UINavigationController alloc]initWithRootViewController:center];
+    
+    [self presentViewController:na animated:YES completion:^{
+        
+    }];
+    
+}
+
+
+
 /**
  *  创建titleView
  */
@@ -203,6 +234,7 @@ typedef enum titleType{
     DetailViewController *detail = [[DetailViewController alloc]init];
     
     detail.dataSource = self.dataSources[tableView.tag - tableViewTag];
+    
     detail.index = indexPath.row;
     
     [self.navigationController pushViewController:detail animated:YES];

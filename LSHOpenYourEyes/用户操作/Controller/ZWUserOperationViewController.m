@@ -51,7 +51,7 @@ typedef enum {
     
     [self setupFrostedGlassView];//毛玻璃视图
     [self setupOperationButton];//操作按钮
-//    [self customTabBar];//自定义tabBar 覆盖原来的
+    [self customTabBar];//自定义tabBar 覆盖原来的
 
     // Do any additional setup after loading the view.
 }
@@ -69,65 +69,41 @@ typedef enum {
 {
     
     
-    [UMSocialSnsService presentSnsIconSheetView:self
-                                         appKey:@"568485cfe0f55a04ae004a51"
-                                      shareText:@"你要分享的文字"
-                                     shareImage:[UIImage imageNamed:@"sanheng.png"]
-                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatSession,UMShareToQQ,UMShareToDouban,UMShareToFacebook,UMShareToInstagram,UMShareToTwitter,UMShareToLine,UMShareToWechatTimeline,nil]
-                                       delegate:nil];
     
+    NSArray * titles = @[@"想看",
+                         @"评分",
+                         @"影单",
+                         @"台词海报"];
+    NSArray * images = @[@"my_calendar_add_interest",
+                         @"my_calendar_add_write",
+                         @"my_calendar_add_build",
+                         @"my_package"];
     
+    for (int i = 0; i < kCount; i++) {
+        
+        ZWOperationView * operationView = [ZWOperationView operationView];
+        
+        int row = i / kColCount;// 行
+        int col = i % kColCount;// 列
+        
+        operationView.tag = kDefaultTag + i;
+        
+        CGFloat margin = (kWidth - 2 * kStartMargin - kColCount * kOperationViewWidth) / (kColCount - 1) ;
+        
+        NSLog(@"%f",margin);
+        
+        operationView.frame = CGRectMake(kStartMargin + col * (margin + kOperationViewWidth), kStartY + (row * kHeightMargin + kOperationViewHeight) + 500, kOperationViewWidth, kOperationViewHeight);
+        
+        ZWOperationViewModel *model = [[ZWOperationViewModel alloc] init];
+        model.title = titles[i];
+        model.imageName = images[i];
+        //调用model的getter方法 进行视图的刷新
+        operationView.model = model;
+        
+        [self.view addSubview:operationView];
+    }
     
 
-//    [[UMSocialControllerService defaultControllerService] setShareText:@"分享内嵌文字" shareImage:[UIImage imageNamed:@"icon"] socialUIDelegate:self];        //设置分享内容和回调对象
-//    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-//    
-//    
-//     [UMSocialWechatHandler setWXAppId:@"wxd930ea5d5a258f4f" appSecret:@"db426a9829e4b49a0dcac7b4162da6b6" url:@"http://www.umeng.com/social"];
-    
-//    NSArray * titles = @[@"想看",
-//                         @"评分",
-//                         @"影单",
-//                         @"台词海报"];
-//    NSArray * images = @[@"my_calendar_add_interest",
-//                         @"my_calendar_add_write",
-//                         @"my_calendar_add_build",
-//                         @"my_package"];
-//    
-//    for (int i = 0; i < kCount; i++) {
-//        
-//        ZWOperationView * operationView = [ZWOperationView operationView];
-//        
-//        int row = i / kColCount;// 行
-//        int col = i % kColCount;// 列
-//        
-//        operationView.tag = kDefaultTag + i;
-//        
-//        CGFloat margin = (kWidth - 2 * kStartMargin - kColCount * kOperationViewWidth) / (kColCount - 1) ;
-//        
-//        NSLog(@"%f",margin);
-//        
-//        operationView.frame = CGRectMake(kStartMargin + col * (margin + kOperationViewWidth), kStartY + (row * kHeightMargin + kOperationViewHeight) + 500, kOperationViewWidth, kOperationViewHeight);
-//        
-//        ZWOperationViewModel *model = [[ZWOperationViewModel alloc] init];
-//        model.title = titles[i];
-//        model.imageName = images[i];
-//        //调用model的getter方法 进行视图的刷新
-//        operationView.model = model;
-//        
-//        [self.view addSubview:operationView];
-//    }
-    
-    
-//    Security.framework
-//    libiconv.dylib
-//    SystemConfiguration.framework
-//    CoreGraphics.Framework
-//    libsqlite3.dylib
-//    CoreTelephony.framework
-//    libstdc++.dylib
-//    libz.dylib
-    
 }
 
 #pragma mark - OperationView移动动画实现
@@ -194,7 +170,7 @@ typedef enum {
     
     //添加返回button
     UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake((kWidth - 44) / 2, 3, 44, 44)];
-    [button setImage:[UIImage imageNamed:@"label_bar_close"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"sanheng"] forState:UIControlStateNormal];
     CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 * 0.5); //45°
     button.transform = transform;
     [imageView addSubview:button];

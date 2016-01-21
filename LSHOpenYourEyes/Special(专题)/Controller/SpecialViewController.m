@@ -10,6 +10,7 @@
 #import "SpecialCell.h"
 #import "ScreenMarco.h"
 #import "DetailSpecailViewController.h"
+#import "MyCenterViewController.h"
 
 
 static NSString *cellID = @"cellID";
@@ -28,9 +29,39 @@ static NSString *cellID = @"cellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    [self createNavigationItem];
     [self createCollectionView];
 }
+
+
+
+-(void)createNavigationItem{
+    
+    
+    //添加导航栏左侧的item,
+    UIImage *image = [UIImage imageNamed:@"sanheng.png"];
+    UIImage *lImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:lImage style:UIBarButtonItemStylePlain  target:self action:@selector(onClick:)];
+    
+    
+    self.navigationItem.leftBarButtonItem = item;
+}
+//点击事件
+-(void)onClick:(UIBarButtonItem *)barButton{
+    
+    MyCenterViewController *center = [[MyCenterViewController alloc]init];
+    UINavigationController *na = [[UINavigationController alloc]initWithRootViewController:center];
+    
+    [self presentViewController:na animated:YES completion:^{
+        
+    }];
+    
+}
+
+
+
 
 -(void)createCollectionView{
     

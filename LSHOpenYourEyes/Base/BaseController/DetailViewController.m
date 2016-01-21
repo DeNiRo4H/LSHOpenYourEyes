@@ -52,6 +52,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+   
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self addScrollViewData];
@@ -135,7 +136,7 @@
         view.content.textColor = [UIColor whiteColor];
         view.content.font = [UIFont systemFontOfSize:14];
             
-            if([CoraDataManager isfavourite:self.video]){
+            if([CoraDataManager isfavourite:list]){
                 [view.collect setImage:[UIImage imageNamed:@"yishoucang"] forState:UIControlStateNormal];
             }else{
             //收藏
@@ -170,20 +171,21 @@
 }
 
 //根据ScrollView偏移量得到对应的video
--(VideoModel *)getVideoModelFromContentOffSet{
+-(ListModel *)getVideoModelFromContentOffSet{
 
     
     ListModel *list =[self.currentModel.itemList firstObject];
+    
     NSInteger index = self.scrollView.contentOffset.x / KscreenWidth;
-    VideoModel *video = [[VideoModel alloc]init];
+//    VideoModel *video = [[VideoModel alloc]init];
     //如果第一个类型为textHeader那么读取下一个
     if([list.type isEqualToString:@"textHeader"] ){
         list = self.currentModel.itemList[index+1];
     }else{
         list = self.currentModel.itemList[index];
     }
-     video = list.data;
-    return video;
+
+    return list;
  }
 
 
@@ -192,9 +194,11 @@
     
     
     LSHMoviePlayerViewController *movie = [[LSHMoviePlayerViewController alloc]init];
+    
     movie.delegate = self;
     
-    VideoModel *video = [self getVideoModelFromContentOffSet];
+    ListModel *list = [self getVideoModelFromContentOffSet];
+    VideoModel *video =list.data;
     
     movie.movieURL = video.playUrl;
     
@@ -209,9 +213,9 @@
 -(void)viewOnClickWithCollection:(UIButton *)button{
 //    NSLog(@"点击收藏");
     LSHView *view = (LSHView *)button.superview;
-    //根据偏移量得到对应的video
-    VideoModel *video = [self getVideoModelFromContentOffSet];
-    
+    //根据偏移量得到对应的listModel
+    ListModel *list = [self getVideoModelFromContentOffSet];
+    VideoModel *video = list.data;
    
     
     static int flag = 1;
@@ -220,24 +224,24 @@
     
     _collecCount = [video.consumption.collectionCount integerValue];
 
-    if(![CoraDataManager isfavourite:video]){//如果没有收藏点击之后就收藏
+    if(![CoraDataManager isfavourite:list]){//如果没有收藏点击之后就收藏
     [view.collect setImage:[UIImage imageNamed:@"yishoucang"] forState:UIControlStateNormal];
         
-        _collecCount ++;
+//        _collecCount ++;
         view.collectLabel.text = [NSString stringWithFormat:@"%ld",_collecCount];
-        flag = 2;
+        
         //插入到数据库
 //        NSLog(@"%@",video.date) ;//插入数据库的时候 日期有问题
-        [CoraDataManager insertModel:video];
+        [CoraDataManager insertModel:list];
         
     }else{//否则收藏了就不变
         [view.collect setImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
         
         view.collectLabel.text = [NSString stringWithFormat:@"%ld",_collecCount];
         
-        flag = 2;
+
         //从数据库中删除
-        [CoraDataManager deleteModel:video];
+        [CoraDataManager deleteModel:list];
     }
 
 }

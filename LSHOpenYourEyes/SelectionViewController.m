@@ -17,6 +17,8 @@
 #import "PageModel.h"
 #import "CurrentPageModel.h"
 #import "DetailViewController.h"
+#import "MyCenterViewController.h"
+#import "ZWUserOperationViewController.h"
 
 static NSString *cellID = @"cellID";
 
@@ -60,7 +62,35 @@ static NSString *cellID = @"cellID";
     [self FirstLoadDataWithUrl:selectionUrl parameters:nil];
     
     [self loadBodyDataWithUrl:selectionUrl parameters:nil];
+    
+    [self createNavigationItem];
 }
+-(void)createNavigationItem{
+  
+    
+    //添加导航栏左侧的item,
+    UIImage *image = [UIImage imageNamed:@"sanheng.png"];
+    UIImage *lImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:lImage style:UIBarButtonItemStylePlain  target:self action:@selector(onClick:)];
+    
+    
+    self.navigationItem.leftBarButtonItem = item;
+}
+
+-(void)onClick:(UIBarButtonItem *)barButton{
+
+    MyCenterViewController *center = [[MyCenterViewController alloc]init];
+    UINavigationController *na = [[UINavigationController alloc]initWithRootViewController:center];
+    
+    [self presentViewController:na animated:YES completion:^{
+        
+    }];
+    
+}
+
+
 
 #pragma mark - 创建tableview
 -(void)createTableView{

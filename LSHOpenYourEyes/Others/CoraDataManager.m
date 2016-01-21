@@ -11,40 +11,47 @@
 @implementation CoraDataManager
 
 //是否收藏
-+(BOOL)isfavourite:(VideoModel*)model{
-
++(BOOL)isfavourite:(ListModel*)model{
+    
+    VideoModel *model1 = model.data;
+    
     //根据id找到数据库中对应的数据数组
-    NSArray *array = [MyVideoModel MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"kid=%@",model.tid]];
+    NSArray *array = [MyVideoModel MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"kid=%@",model1.tid]];
     return array.count;
   
 }
 
-+(void)insertModel:(VideoModel *)model{
++(void)insertModel:(ListModel *)model{
+    
+    VideoModel *model1 = model.data;
+    
+    
      //创建实体
     MyVideoModel *video = [MyVideoModel MR_createEntity];
+    video.type = model.type;
     
-    video.kid = model.tid;
+    video.kid = model1.tid;
 //    video.date = model.date;
-    video.idx = model.idx;
-    video.title = model.title;
-    video.kdescription = model.kdescription;
-    video.category = model.category;
-    video.duration = model.duration;
-    video.playUrl = model.playUrl;
+    video.idx = model1.idx;
+    video.title = model1.title;
+    video.kdescription = model1.kdescription;
+    video.category = model1.category;
+    video.duration = model1.duration;
+    video.playUrl = model1.playUrl;
     
-    ConsumptionModel *consumption = model.consumption;
+    ConsumptionModel *consumption = model1.consumption;
     video.collectionCount = consumption.collectionCount;
     video.shareCount = consumption.shareCount;
     video.playCount = consumption.playCount;
     video.replyCount = consumption.replyCount;
     
-    CoverModel *cover = model.cover;
+    CoverModel *cover = model1.cover;
     video.feed = cover.feed;
     video.detail = cover.detail;
     video.blurred = cover.blurred;
     video.sharing = cover.sharing;
     
-    WebUrlModel *webModel = model.webUrl;
+    WebUrlModel *webModel = model1.webUrl;
     webModel.raw = webModel.raw;
     webModel.forWeibo = webModel.forWeibo;
     
@@ -56,10 +63,11 @@
 
 }
 
-+(void)deleteModel:(VideoModel *)model{
++(void)deleteModel:(ListModel *)model{
    
+    VideoModel *model1 = model.data;
     //根据id找到数据库中对应的数据数组
-    NSArray *array = [MyVideoModel MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"kid=%@",model.tid]];
+    NSArray *array = [MyVideoModel MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"kid=%@",model1.tid]];
     
     for(MyVideoModel *video in array){
         //删除对应的实体
@@ -76,13 +84,14 @@
     NSArray *models = [MyVideoModel MR_findAll];
     
     NSMutableArray *listArrays = [NSMutableArray array];
+    ListModel *list = [[ListModel alloc]init];
     
     for(MyVideoModel *video in models){
-    
+      
         VideoModel *model =[[VideoModel alloc]init];
         
          model.tid = video.kid ;
-         model.date =video.date ;
+//         model.date =video.date ;
           model.idx = video.idx;
          model.title = video.title ;
         model.kdescription = video.kdescription ;
@@ -112,13 +121,19 @@
          webModel.raw = webModel.raw ;
          webModel.forWeibo = webModel.forWeibo;
         model.webUrl = webModel;
-        [listArrays addObject:model];
         
-        return listArrays;
+        //list里面有两个数据
+        list.type = video.type;
+        list.data = model;
+        
+        //listArrays 里面装的都是listModel:type 和 data数组
+        [listArrays addObject:list];
+        
+       
     
     }
   
-    return nil;
+     return listArrays;
 }
 
 

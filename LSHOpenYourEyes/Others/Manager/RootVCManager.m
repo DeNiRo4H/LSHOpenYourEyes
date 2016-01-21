@@ -13,8 +13,14 @@
 #import "BaseNavigationViewController.h"
 #import "ZWUserOperationViewController.h"
 
-@interface RootVCManager()
 
+
+@interface RootVCManager()
+{
+
+   
+  
+}
 
 @end
 
@@ -93,19 +99,11 @@
     UIViewController *vc = [[className alloc]init];
     vc.view.backgroundColor = [UIColor colorWithRed:0.21 green:0.24 blue:0.25 alpha:0.1];
     
-  
 //    vc.title = title;
 //    NSLog(@"%@", [UIFont familyNames]);
 
     BaseNavigationViewController *baseNaVC = [[BaseNavigationViewController alloc]initWithRootViewController:vc];
-    
-    //添加导航栏左侧的item, 没法显示......
-    UIImage *image = [UIImage imageNamed:@"sanheng.png"];
-        UIImage *lImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:lImage style:UIBarButtonItemStylePlain  target:self action:@selector(onClick:)];
-    
-    vc.navigationItem.leftBarButtonItem = item;
+
     
 
     return baseNaVC;
@@ -116,8 +114,7 @@
 //点击按钮之后弹出的
 -(void)onClick:(UIButton *)button{
 
-  
-   
+    NSLog(@"点击了item");
 
 }
 

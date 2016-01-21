@@ -22,8 +22,9 @@
         <attribute name="shareCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sharing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MyVideoModel" positionX="-63" positionY="-18" width="128" height="360"/>
+        <element name="MyVideoModel" positionX="-63" positionY="-18" width="128" height="375"/>
     </elements>
 </model>

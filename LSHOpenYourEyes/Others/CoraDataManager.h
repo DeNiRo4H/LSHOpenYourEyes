@@ -14,15 +14,16 @@
 #import "ProviderModel.h"
 #import "CoverModel.h"
 #import "WebUrlModel.h"
+#import "ListModel.h"
 
 @interface CoraDataManager : NSObject
 
 
-+(BOOL)isfavourite:(VideoModel*)model;
++(BOOL)isfavourite:(ListModel*)model;
 
-+(void)insertModel:(VideoModel *)model;
++(void)insertModel:(ListModel *)model;
 
-+(void)deleteModel:(VideoModel *)model;
++(void)deleteModel:(ListModel *)model;
 
 +(NSArray *)findAppALL;
 

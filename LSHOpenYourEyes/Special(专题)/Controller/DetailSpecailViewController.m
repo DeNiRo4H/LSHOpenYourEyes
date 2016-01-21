@@ -15,6 +15,7 @@
 #import "DJRefresh.h"
 #import "PageModel.h"
 #import "DetailViewController.h"
+#import "MyCenterViewController.h"
 
 #define tableViewTag 40
 
@@ -72,7 +73,12 @@ typedef enum titleType{
     [self FirstLoadDataWithUrl:specialUrl withType:shareCount];
     
     [self loadDataWithType:date withURL:specialUrl];
+    
 }
+
+
+
+
 
 /**
  *  创建titleView

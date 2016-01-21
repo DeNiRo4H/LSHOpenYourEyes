@@ -10,6 +10,7 @@
 #import "RootVCManager.h"
 #import "UMSocial.h"
 #import "MagicalRecord.h"
+#import "MyCenterViewController.h"
 
 @interface AppDelegate ()
 
@@ -33,6 +34,9 @@
     [self.window makeKeyAndVisible];
     
     self.window.rootViewController = [RootVCManager rootVC];
+    
+    
+    
     
     //设置状态栏的样式
 //    UIStatusBarStyleLightContent- 白色
@@ -70,6 +74,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [MagicalRecord cleanUp];
 }
 
 @end

@@ -29,11 +29,6 @@
                 [UIFont fontWithName:@ "Snell Roundhand"  size:25.0], NSFontAttributeName, nil]];
 
    //添加导航栏左侧的item, 没法显示......
-    UIImage *image = [UIImage imageNamed:@"sanheng.png"];
-//    UIImage *lImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain  target:self action:@selector(onClick:)];
-//    self.navigationController.navigationItem.leftBarButtonItem = item;
-    self.navigationItem.leftBarButtonItem = item;
     
     
 }
