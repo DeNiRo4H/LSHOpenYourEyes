@@ -249,6 +249,20 @@ typedef enum titleType{
     cell.backgroundColor = [UIColor grayColor];
     VideoModel *model = list.data;
     cell.model = model;
+    
+//    cell.image.image = nil;
+//    NSString *publishTime = [NSString stringWithFormat:@"%ld",currentPageModel.publishTime];
+//    [self.manager requestWithUrl:selectionUrl parameters:@{@"date":publishTime} complicate:^(BOOL success, id object) {
+//        if (cell.model == model) {
+//            if (success) {
+//                [cell.image setImageWithURL:[NSURL URLWithString:model.cover.feed]];
+//            }
+//        }
+//        
+//    } modelClass:[CurrentPageModel class]];
+    
+    
+    
     return cell;
     
 }

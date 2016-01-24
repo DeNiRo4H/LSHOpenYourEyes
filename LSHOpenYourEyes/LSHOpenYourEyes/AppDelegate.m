@@ -21,10 +21,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
+    
      //创建数据库
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"MYVedio.sqlite"];
     
-    NSLog(@"%@",NSHomeDirectory());
+//    NSLog(@"%@",NSHomeDirectory());
     
     
     

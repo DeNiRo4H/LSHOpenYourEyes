@@ -9,7 +9,7 @@
                 <outlet property="email" destination="o2w-Mv-VMe" id="su7-Kp-10d"/>
                 <outlet property="name" destination="SE1-Sk-Qhf" id="erE-YN-8mq"/>
                 <outlet property="playName" destination="9SS-SC-5tp" id="odO-Gv-04O"/>
-                <outlet property="send" destination="WMz-Cx-Kdt" id="nZk-GE-kn1"/>
+                <outlet property="send" destination="VJN-Ic-9WQ" id="EML-ox-7qt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -45,7 +45,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9SS-SC-5tp">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="视频名称或者视频地址" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9SS-SC-5tp">
                     <rect key="frame" x="20" y="280" width="560" height="120"/>
                     <color key="backgroundColor" red="1" green="0.6786073118" blue="0.14749707000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -54,6 +54,20 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJN-Ic-9WQ">
+                    <rect key="frame" x="498" y="76" width="50" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="vVv-cd-wbG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="投稿">
+                        <color key="titleColor" red="0.5" green="0.35542615519999998" blue="0.137695076" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="button:" destination="-1" eventType="touchUpInside" id="5Tj-mZ-qdX"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -63,13 +77,22 @@
                 <constraint firstItem="SE1-Sk-Qhf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="120" id="RQu-5Z-7I7"/>
                 <constraint firstItem="9SS-SC-5tp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="eWH-DL-yTn"/>
                 <constraint firstItem="9SS-SC-5tp" firstAttribute="top" secondItem="o2w-Mv-VMe" secondAttribute="bottom" constant="30" id="ebk-Qn-HAW"/>
+                <constraint firstItem="VJN-Ic-9WQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="gnl-bw-rQg"/>
                 <constraint firstAttribute="trailing" secondItem="SE1-Sk-Qhf" secondAttribute="trailing" constant="20" id="k8o-t6-9CP"/>
                 <constraint firstItem="o2w-Mv-VMe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="pP6-uN-RCJ"/>
                 <constraint firstItem="WMz-Cx-Kdt" firstAttribute="top" secondItem="9SS-SC-5tp" secondAttribute="bottom" constant="30" id="pe5-lJ-bOA"/>
                 <constraint firstAttribute="trailing" secondItem="o2w-Mv-VMe" secondAttribute="trailing" constant="20" id="rNh-0l-4U5"/>
+                <constraint firstItem="SE1-Sk-Qhf" firstAttribute="top" secondItem="VJN-Ic-9WQ" secondAttribute="bottom" constant="10" id="tAB-bF-6qu"/>
                 <constraint firstAttribute="centerX" secondItem="WMz-Cx-Kdt" secondAttribute="centerX" constant="14" id="v7z-FZ-oFh"/>
                 <constraint firstItem="SE1-Sk-Qhf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="yhq-Ie-0Zd"/>
+                <constraint firstAttribute="trailing" secondItem="VJN-Ic-9WQ" secondAttribute="trailing" constant="52" id="zmz-0c-eud"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="WMz-Cx-Kdt"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="160" y="146"/>
         </view>
     </objects>
 </document>

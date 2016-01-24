@@ -28,7 +28,7 @@
 -(void)initView{
     
 
-    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KscreenWidth, 350)];
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KscreenWidth, KscreenHeight *350/667)];
     
     //设置背景图
     self.backImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KscreenWidth, KscreenHeight)];
@@ -67,18 +67,18 @@
 //  self.content.backgroundColor = [UIColor blackColor];
     
     //分享 收藏 下载
-    self.collect = [[UIButton alloc]initWithFrame:CGRectMake(60, self.content.frame.origin.y +140, SFXButton, SFXButton)];
+    self.collect = [[UIButton alloc]initWithFrame:CGRectMake(40, self.content.frame.origin.y +KscreenHeight*140/667, SFXButton, SFXButton)];
     [self.collect addTarget:self action:@selector(collectClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.collectLabel = [[UILabel alloc]initWithFrame:CGRectMake(60+SFXButton+SPACE_WIDTH, self.content.frame.origin.y +130, NAMELABEL, NAMELABEL)];
+    self.collectLabel = [[UILabel alloc]initWithFrame:CGRectMake(40+SFXButton+SPACE_WIDTH, self.content.frame.origin.y +KscreenHeight*130/667, NAMELABEL, NAMELABEL)];
 
     
-    self.share = [[UIButton alloc]initWithFrame:CGRectMake(60+SFXButton+2*SPACE_WIDTH +NAMELABEL, self.content.frame.origin.y +140,SFXButton, SFXButton)];
-    self.shareLable = [[UILabel alloc]initWithFrame:CGRectMake(60+2*SFXButton+3*SPACE_WIDTH +NAMELABEL, self.content.frame.origin.y +130, NAMELABEL, NAMELABEL)];
+    self.share = [[UIButton alloc]initWithFrame:CGRectMake(40+SFXButton+2*SPACE_WIDTH +NAMELABEL, self.content.frame.origin.y +KscreenHeight*140/667,SFXButton, SFXButton)];
+    self.shareLable = [[UILabel alloc]initWithFrame:CGRectMake(40+2*SFXButton+3*SPACE_WIDTH +NAMELABEL, self.content.frame.origin.y +KscreenHeight*130/667, NAMELABEL, NAMELABEL)];
     [self.share addTarget:self action:@selector(shareClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.downLoad = [[UIButton alloc]initWithFrame:CGRectMake(60+2*SFXButton+4*SPACE_WIDTH +2*NAMELABEL, self.content.frame.origin.y +140, SFXButton, SFXButton)];
-    self.downLoadLabel = [[UILabel alloc]initWithFrame:CGRectMake(60+3*SFXButton+5*SPACE_WIDTH +2*NAMELABEL, self.content.frame.origin.y +130, NAMELABEL, NAMELABEL)];
+    self.downLoad = [[UIButton alloc]initWithFrame:CGRectMake(40+2*SFXButton+4*SPACE_WIDTH +2*NAMELABEL, self.content.frame.origin.y +KscreenHeight*140/667, SFXButton, SFXButton)];
+    self.downLoadLabel = [[UILabel alloc]initWithFrame:CGRectMake(40+3*SFXButton+5*SPACE_WIDTH +2*NAMELABEL, self.content.frame.origin.y +KscreenHeight*130/667, NAMELABEL, NAMELABEL)];
     [self.downLoad addTarget:self action:@selector(downLoadClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:self.backImage];

@@ -7,7 +7,7 @@
 //
 
 #import "SelectionCell.h"
-#import "UIImageView+AFNetworking.h"
+
 @implementation SelectionCell
 
 

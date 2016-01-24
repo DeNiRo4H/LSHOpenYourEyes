@@ -10,4 +10,5 @@
 
 @interface FeedBackViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *send;
 @end

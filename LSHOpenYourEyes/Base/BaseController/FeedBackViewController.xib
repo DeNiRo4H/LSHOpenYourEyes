@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeedBackViewController">
             <connections>
-                <outlet property="send" destination="m8j-ON-Hnd" id="AYe-Sf-ipG"/>
+                <outlet property="send" destination="S7b-wZ-mka" id="8f1-rx-MlV"/>
                 <outlet property="textField" destination="vRw-ob-doZ" id="Vs6-f7-Ijc"/>
                 <outlet property="textView" destination="R5t-Eq-NFJ" id="roW-OD-ciS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -29,7 +29,7 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="请输入意见" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R5t-Eq-NFJ">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="30" contentMode="scaleToFill" text="请输入意见" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R5t-Eq-NFJ">
                     <rect key="frame" x="20" y="362" width="560" height="120"/>
                     <color key="backgroundColor" red="1" green="0.6786073118" blue="0.14749707000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -38,27 +38,32 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="nfv-p8-lJc"/>
+                    </connections>
                 </textView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入邮箱" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vRw-ob-doZ">
+                <textField opaque="NO" clipsSubviews="YES" tag="31" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入邮箱" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vRw-ob-doZ">
                     <rect key="frame" x="20" y="492" width="560" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="Poi-QL-t9N"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="F3p-zV-Fjv"/>
+                    </connections>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m8j-ON-Hnd">
-                    <rect key="frame" x="249" y="554" width="80" height="38"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7b-wZ-mka">
+                    <rect key="frame" x="490" y="76" width="58" height="23"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="80" id="hAi-ds-IeW"/>
+                        <constraint firstAttribute="width" constant="58" id="KMx-kU-hgb"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="发送">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="send:" destination="-1" eventType="touchUpInside" id="vKB-Zc-22D"/>
+                        <action selector="send:" destination="-1" eventType="touchUpInside" id="CvZ-GW-x8c"/>
                     </connections>
                 </button>
             </subviews>
@@ -66,18 +71,18 @@
             <color key="tintColor" red="0.5" green="0.35542615519999998" blue="0.137695076" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="vRw-ob-doZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="8nw-2b-55V"/>
-                <constraint firstItem="m8j-ON-Hnd" firstAttribute="top" secondItem="vRw-ob-doZ" secondAttribute="bottom" constant="20" id="Bt8-1a-HTw"/>
-                <constraint firstAttribute="bottom" secondItem="m8j-ON-Hnd" secondAttribute="bottom" constant="10" id="Bx9-Ms-5a1"/>
                 <constraint firstAttribute="trailing" secondItem="9Vx-lH-Xl0" secondAttribute="trailing" constant="40" id="K3d-lp-Lm1"/>
                 <constraint firstAttribute="trailing" secondItem="vRw-ob-doZ" secondAttribute="trailing" constant="20" id="M3m-Rg-ilj"/>
                 <constraint firstAttribute="trailing" secondItem="dgP-Dc-wlo" secondAttribute="trailing" constant="39" id="OO6-Cx-BOC"/>
                 <constraint firstItem="R5t-Eq-NFJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Q8e-4Z-xBd"/>
                 <constraint firstAttribute="trailing" secondItem="R5t-Eq-NFJ" secondAttribute="trailing" constant="20" id="QUg-Rl-m1s"/>
                 <constraint firstItem="9Vx-lH-Xl0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="120" id="WrW-nD-7wQ"/>
+                <constraint firstItem="S7b-wZ-mka" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="XBK-Qm-0kO"/>
                 <constraint firstItem="vRw-ob-doZ" firstAttribute="top" secondItem="R5t-Eq-NFJ" secondAttribute="bottom" constant="10" id="aX7-BG-e3N"/>
                 <constraint firstItem="dgP-Dc-wlo" firstAttribute="top" secondItem="9Vx-lH-Xl0" secondAttribute="bottom" constant="100" id="b1F-mK-pov"/>
                 <constraint firstItem="R5t-Eq-NFJ" firstAttribute="top" secondItem="dgP-Dc-wlo" secondAttribute="bottom" constant="100" id="hfG-4v-Nyc"/>
-                <constraint firstAttribute="centerX" secondItem="m8j-ON-Hnd" secondAttribute="centerX" constant="11" id="l1p-nr-tP9"/>
+                <constraint firstItem="9Vx-lH-Xl0" firstAttribute="top" secondItem="S7b-wZ-mka" secondAttribute="bottom" constant="21" id="iHd-1b-sc6"/>
+                <constraint firstAttribute="trailing" secondItem="S7b-wZ-mka" secondAttribute="trailing" constant="52" id="mvp-o0-qXT"/>
                 <constraint firstItem="9Vx-lH-Xl0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="nbZ-He-4ZJ"/>
                 <constraint firstItem="dgP-Dc-wlo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="ztJ-8h-0Xj"/>
             </constraints>

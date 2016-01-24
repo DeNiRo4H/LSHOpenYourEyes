@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VideoModel.h"
-
+#import "UIImageView+AFNetworking.h"
 @interface SelectionCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *image;

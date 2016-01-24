@@ -13,7 +13,7 @@
 #import "LSHView.h"
 #import "LSHMoviePlayerViewController.h"
 #import "ConsumptionModel.h"
-#import "ZWUserOperationViewController.h"
+
 #import "UMSocial.h"
 #import "CoraDataManager.h"
 
@@ -99,7 +99,7 @@
     
     for(ListModel *list in array){
 
-        if([list.type isEqualToString:@"textHeader"]){
+        if([list.type isEqualToString:@"textHeader"]||[list.type isEqualToString:@"imageHeader"]){
             continue;
         }else{
         
@@ -125,7 +125,7 @@
             //设置子标题
         NSInteger minute = [self.video.duration integerValue] / 60;
        NSInteger second = [self.video.duration integerValue] % 60;
-       view.info.text = [NSString stringWithFormat:@"#%@ / %ld\' %ld\" ",self.video.category,minute,second];
+       view.info.text = [NSString stringWithFormat:@"#%@ / %ld\' %ld\" ",self.video.category,(long)minute,second];
        view.info.textColor = [UIColor whiteColor];
        view.info.font = [UIFont systemFontOfSize:14];
 
@@ -172,20 +172,26 @@
 
 //根据ScrollView偏移量得到对应的video
 -(ListModel *)getVideoModelFromContentOffSet{
-
+  NSInteger index = self.scrollView.contentOffset.x / KscreenWidth;
+    ListModel *list1 = [[ListModel alloc]init];
+    if(self.dataSource.count == 0){
+     ListModel *list =[self.currentModel.itemList firstObject];
     
-    ListModel *list =[self.currentModel.itemList firstObject];
-    
-    NSInteger index = self.scrollView.contentOffset.x / KscreenWidth;
+  
 //    VideoModel *video = [[VideoModel alloc]init];
     //如果第一个类型为textHeader那么读取下一个
-    if([list.type isEqualToString:@"textHeader"] ){
+    if([list.type isEqualToString:@"textHeader"] ||[list.type isEqualToString:@"imageHeader"] ){
         list = self.currentModel.itemList[index+1];
     }else{
         list = self.currentModel.itemList[index];
     }
 
     return list;
+    }else{
+        list1 = self.dataSource[index];
+        return list1;
+    }
+    return nil;
  }
 
 
@@ -218,7 +224,7 @@
     VideoModel *video = list.data;
    
     
-    static int flag = 1;
+
     
 #warning 收藏有bug 待修改
     
@@ -227,8 +233,8 @@
     if(![CoraDataManager isfavourite:list]){//如果没有收藏点击之后就收藏
     [view.collect setImage:[UIImage imageNamed:@"yishoucang"] forState:UIControlStateNormal];
         
-//        _collecCount ++;
-        view.collectLabel.text = [NSString stringWithFormat:@"%ld",_collecCount];
+        _collecCount ++;
+        view.collectLabel.text = [NSString stringWithFormat:@"%ld",(long)_collecCount];
         
         //插入到数据库
 //        NSLog(@"%@",video.date) ;//插入数据库的时候 日期有问题
@@ -237,7 +243,7 @@
     }else{//否则收藏了就不变
         [view.collect setImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
         
-        view.collectLabel.text = [NSString stringWithFormat:@"%ld",_collecCount];
+        view.collectLabel.text = [NSString stringWithFormat:@"%ld",(long)_collecCount];
         
 
         //从数据库中删除
@@ -259,7 +265,7 @@
                                          appKey:@"568485cfe0f55a04ae004a51"
                                       shareText:@"你要分享的文字"
                                      shareImage:[UIImage imageNamed:@"sanheng.png"]
-                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatSession,UMShareToQQ,UMShareToDouban,UMShareToFacebook,UMShareToInstagram,UMShareToTwitter,UMShareToLine,UMShareToWechatTimeline,nil]
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToDouban,UMShareToFacebook,UMShareToTwitter,nil]
                                        delegate:nil];
 }
 

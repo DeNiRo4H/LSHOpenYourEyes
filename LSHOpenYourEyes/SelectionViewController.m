@@ -18,7 +18,7 @@
 #import "CurrentPageModel.h"
 #import "DetailViewController.h"
 #import "MyCenterViewController.h"
-#import "ZWUserOperationViewController.h"
+
 
 static NSString *cellID = @"cellID";
 
@@ -95,7 +95,7 @@ static NSString *cellID = @"cellID";
 #pragma mark - 创建tableview
 -(void)createTableView{
         
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,64, WIDTH, HEITHT +-110) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,64, WIDTH, HEITHT -110) style:UITableViewStylePlain];
         //cell的高度
         _tableView.rowHeight = 230;
         //代理关系
@@ -167,9 +167,9 @@ static NSString *cellID = @"cellID";
             if(_pageFlag == 1){
                 [self.dataSource removeAllObjects];
             }
-            
+
             [self.dataSource addObject:object];
-           
+            
             //刷新tableView
             [self.tableView reloadData];
         }
@@ -185,13 +185,14 @@ static NSString *cellID = @"cellID";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     CurrentPageModel *currentPageModel = self.dataSource[section];
+    NSString *type = currentPageModel.type;//nomal 或者weekendExtra
     
     NSArray *array = currentPageModel.itemList;
     
     ListModel *list = [array firstObject];
     
-    if([list.type isEqualToString:@"textHeader"]){
-        
+    if([list.type isEqualToString:@"textHeader"]||[type isEqualToString:@"weekendExtra"]){
+//     类型为 weekendExtra 的时候 会有六行 第一行为
        return  array.count - 1;
         
     }
@@ -212,16 +213,18 @@ static NSString *cellID = @"cellID";
     
     
     CurrentPageModel *currentPageModel = self.dataSource[section];
+    long long int time = currentPageModel.date;
     
-    NSDate *date1 = [[NSDate alloc]initWithTimeIntervalSinceNow:-3600*24*_day];
+      NSDate *timeDate = [[NSDate alloc]initWithTimeIntervalSince1970:time/1000.0];
+
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"MM-dd"];
     //用[NSDate date]可以获取系统当前时间
-    NSString *currentDateStr = [dateFormatter stringFromDate:date1];
+    NSString *currentDateStr = [dateFormatter stringFromDate:timeDate];
     
-    NSLog(@"%@",currentDateStr);
+//    NSLog(@"%@",currentDateStr);
     
     
     ListModel *firstList = currentPageModel.itemList[0];
@@ -231,6 +234,9 @@ static NSString *cellID = @"cellID";
 //     return [NSString stringWithFormat:@"%ld", currentPageModel.date];
         return currentDateStr;
         
+    }else if([firstList.type isEqualToString:@"imageHeader"]){
+        //如果itemList第一个元素为weekendExtra 的时候 组头视图为weekendExtra
+        return currentPageModel.type;
     }
     
     
@@ -238,6 +244,7 @@ static NSString *cellID = @"cellID";
     return  nil;
     
 }
+
 
 
 
@@ -254,20 +261,34 @@ static NSString *cellID = @"cellID";
     
     //获得每组显示的列表
    //如果列表中第一个为textHeader 从第二个开始
-    if([firstList.type isEqualToString:@"textHeader"]){
+    if([firstList.type isEqualToString:@"textHeader"]||[firstList.type isEqualToString:@"imageHeader"]){
         
         list = currentPageModel.itemList[indexPath.row +1];
     }else{
          list = currentPageModel.itemList[indexPath.row];
     }
     VideoModel *model = list.data;
+    cell.model = model;
+    
+    
+//    cell.image.image = nil;
+//    NSString *publishTime = [NSString stringWithFormat:@"%ld",currentPageModel.publishTime];
+//    
+//    [self.manager requestWithUrl:selectionUrl parameters:@{@"date":publishTime} complicate:^(BOOL success, id object) {
+//        if (cell.model == model) {
+//            if (success) {
+//                [cell.image setImageWithURL:[NSURL URLWithString:model.cover.feed]];
+//            }
+//        }
+//        
+//    } modelClass:[CurrentPageModel class]];
+    
+    
+    
     
     //cell被选中的风格
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor grayColor];
-    
-    cell.model = model;
-    
     return cell;
 
 }

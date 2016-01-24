@@ -82,12 +82,14 @@
 +(NSArray *)findAppALL{
     //找到所有的模型
     NSArray *models = [MyVideoModel MR_findAll];
-    
+
     NSMutableArray *listArrays = [NSMutableArray array];
-    ListModel *list = [[ListModel alloc]init];
+    
+   
     
     for(MyVideoModel *video in models){
       
+         ListModel *list = [[ListModel alloc]init];
         VideoModel *model =[[VideoModel alloc]init];
         
          model.tid = video.kid ;

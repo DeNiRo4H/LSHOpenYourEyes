@@ -57,10 +57,12 @@ static NSString *cellID = @"cellID";
     
     //初始化shuj
     self.dataSource = [NSMutableArray array];
-    NSArray *nameArray = @[@" ",@"我的收藏",@"我的下载",@"我的意见",@"更多应用"];
-    NSLog(@"%ld", [nameArray indexOfObject:self.name]);
+//    NSArray *nameArray = @[@" ",@"我的收藏",@"我的下载",@"我的意见",@"更多应用"];
+//    NSLog(@"%ld", [nameArray indexOfObject:self.name]);
     //获取本地数据
     [self.dataSource addObjectsFromArray:[CoraDataManager findAppALL]];
+    
+    NSLog(@"%@", self.dataSource);
     
     if(self.dataSource.count == 0){
         UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 120)];
