@@ -99,7 +99,7 @@
     
     for(ListModel *list in array){
 
-        if([list.type isEqualToString:@"textHeader"]||[list.type isEqualToString:@"imageHeader"]){
+        if([list.type isEqualToString:@"textHeader"]||[list.type isEqualToString:@"imageHeader"]||[list.type isEqualToString:@"campaign"]){
             continue;
         }else{
         
@@ -180,7 +180,7 @@
   
 //    VideoModel *video = [[VideoModel alloc]init];
     //如果第一个类型为textHeader那么读取下一个
-    if([list.type isEqualToString:@"textHeader"] ||[list.type isEqualToString:@"imageHeader"] ){
+    if([list.type isEqualToString:@"textHeader"] ||[list.type isEqualToString:@"imageHeader"]||[list.type isEqualToString:@"campaign"] ){
         list = self.currentModel.itemList[index+1];
     }else{
         list = self.currentModel.itemList[index];

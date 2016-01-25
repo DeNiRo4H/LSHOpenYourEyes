@@ -185,16 +185,19 @@ static NSString *cellID = @"cellID";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     CurrentPageModel *currentPageModel = self.dataSource[section];
-    NSString *type = currentPageModel.type;//nomal 或者weekendExtra
+    NSString *type = currentPageModel.type;//nomal 或者weekendExtra//campaign
     
     NSArray *array = currentPageModel.itemList;
     
     ListModel *list = [array firstObject];
     
-    if([list.type isEqualToString:@"textHeader"]||[type isEqualToString:@"weekendExtra"]){
-//     类型为 weekendExtra 的时候 会有六行 第一行为
-       return  array.count - 1;
-        
+//    if([list.type isEqualToString:@"textHeader"]||[type isEqualToString:@"weekendExtra"]){
+////     类型为 weekendExtra 的时候 会有六行 第一行为
+//       return  array.count - 1;
+//        
+//    }
+    if(![list.type isEqualToString:@"video"]){
+        return array.count -1;
     }
     
     return array.count;
@@ -237,6 +240,8 @@ static NSString *cellID = @"cellID";
     }else if([firstList.type isEqualToString:@"imageHeader"]){
         //如果itemList第一个元素为weekendExtra 的时候 组头视图为weekendExtra
         return currentPageModel.type;
+    }else if ([firstList.type isEqualToString:@"campaign"]){
+      return currentDateStr;
     }
     
     
@@ -261,7 +266,7 @@ static NSString *cellID = @"cellID";
     
     //获得每组显示的列表
    //如果列表中第一个为textHeader 从第二个开始
-    if([firstList.type isEqualToString:@"textHeader"]||[firstList.type isEqualToString:@"imageHeader"]){
+    if([firstList.type isEqualToString:@"textHeader"]||[firstList.type isEqualToString:@"imageHeader"]||[firstList.type isEqualToString:@"campaign"]){
         
         list = currentPageModel.itemList[indexPath.row +1];
     }else{
@@ -269,19 +274,6 @@ static NSString *cellID = @"cellID";
     }
     VideoModel *model = list.data;
     cell.model = model;
-    
-    
-//    cell.image.image = nil;
-//    NSString *publishTime = [NSString stringWithFormat:@"%ld",currentPageModel.publishTime];
-//    
-//    [self.manager requestWithUrl:selectionUrl parameters:@{@"date":publishTime} complicate:^(BOOL success, id object) {
-//        if (cell.model == model) {
-//            if (success) {
-//                [cell.image setImageWithURL:[NSURL URLWithString:model.cover.feed]];
-//            }
-//        }
-//        
-//    } modelClass:[CurrentPageModel class]];
     
     
     
