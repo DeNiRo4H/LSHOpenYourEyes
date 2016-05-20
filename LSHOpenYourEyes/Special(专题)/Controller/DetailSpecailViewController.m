@@ -16,7 +16,7 @@
 #import "PageModel.h"
 #import "DetailViewController.h"
 #import "MyCenterViewController.h"
-
+#import "MBProgressHUD.h"
 #define tableViewTag 40
 
 static NSString *cellID = @"cellID";
@@ -55,7 +55,7 @@ typedef enum titleType{
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -69,6 +69,8 @@ typedef enum titleType{
 
     //第一次请求得到当前数据的下一页的请求地址url
     //坑,要先得到page数组的  两个  page  不然出错
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self FirstLoadDataWithUrl:specialUrl withType:date];
     [self FirstLoadDataWithUrl:specialUrl withType:shareCount];
     
@@ -183,12 +185,14 @@ typedef enum titleType{
     }
     
     [self.manager requestWithUrl:urlString parameters:dic complicate:^(BOOL success, id object) {
-        
-        //jsonModel 解析得到
-        PageModel *model = [[PageModel alloc]initWithDictionary:object error:nil];
-        
-        //得到下一页
-        _nextPage[type] = model.nextPageUrl;
+        if (success) {
+            //jsonModel 解析得到
+            PageModel *model = [[PageModel alloc]initWithDictionary:object error:nil];
+            
+            //得到下一页
+            _nextPage[type] = model.nextPageUrl;
+        }
+       
         
     } modelClass:[PageModel class]];
     
@@ -214,13 +218,15 @@ typedef enum titleType{
     
     [self.manager requestWithUrl:urlString parameters:dic complicate:^(BOOL success, id object) {
         //根据下拉空间刷新动画
-        DJRefresh *refresh = [self.refreshs objectAtIndex:type];
-        [refresh finishRefreshing];//结束刷新
-        
-        [self.dataSources[type] addObjectsFromArray:object];
-        
-        //创新tableview
-        [[self tableViewWithType:type] reloadData];
+        if (success) {
+            DJRefresh *refresh = [self.refreshs objectAtIndex:type];
+           //结束刷新
+            [refresh finishRefreshingDirection:DJRefreshDirectionTop animation:YES];
+            [self.dataSources[type] addObjectsFromArray:object];
+            //创新tableview
+            [[self tableViewWithType:type] reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
         
     } modelClass:[ListModel class]];
 }
@@ -250,19 +256,6 @@ typedef enum titleType{
     VideoModel *model = list.data;
     cell.model = model;
     
-//    cell.image.image = nil;
-//    NSString *publishTime = [NSString stringWithFormat:@"%ld",currentPageModel.publishTime];
-//    [self.manager requestWithUrl:selectionUrl parameters:@{@"date":publishTime} complicate:^(BOOL success, id object) {
-//        if (cell.model == model) {
-//            if (success) {
-//                [cell.image setImageWithURL:[NSURL URLWithString:model.cover.feed]];
-//            }
-//        }
-//        
-//    } modelClass:[CurrentPageModel class]];
-    
-    
-    
     return cell;
     
 }
@@ -286,8 +279,11 @@ typedef enum titleType{
     
     self.scrollView.contentOffset = CGPointMake(index * WIDTH, 0);
     
-       _flag = 0;
+    _flag = 0;
     [self loadDataWithType:(TitleType)index withURL:specialUrl];
+    if ([self.dataSources[index] count] == 0) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
    
 }
 
@@ -296,17 +292,12 @@ typedef enum titleType{
     
       TitleType type = (TitleType)(refresh.scrollView.tag - tableViewTag);
     
-    if(direction == DJRefreshDirectionBottom){
-        NSLog(@"%d", type);
+    if(direction == DJRefreshingDirectionTop){
         _flag = 1;
-        
         [self loadDataWithType:type withURL:_nextPage[type]];
-        
         //请求下一页的数据
         [self FirstLoadDataWithUrl:_nextPage[type] withType:type];
-        
-        
-        
+    
     }
 
 }
@@ -322,6 +313,7 @@ typedef enum titleType{
     [self.navigationController pushViewController:detail animated:YES];
 
 }
+
 
 
 @end

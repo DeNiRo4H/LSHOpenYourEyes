@@ -13,6 +13,7 @@
 #import "PageModel.h"
 #import "CurrentPageModel.h"
 
+
 @interface RequestManager()
 
 @property(nonatomic, strong)AFHTTPRequestOperationManager *manager;
@@ -21,7 +22,7 @@
 
 @implementation RequestManager
 
--(AFHTTPRequestOperationManager *)manager{
+- (AFHTTPRequestOperationManager *)manager{
 
     if(_manager == nil){
     
@@ -32,18 +33,15 @@
 }
 
 
--(void)requestWithUrl:(NSString *)urlString parameters:(NSDictionary *)dic complicate:(Complicate)complicate modelClass:(Class)modelClass{
-    
-//    NSLog(@"%@", dic);
+- (void)requestWithUrl:(NSString *)urlString parameters:(NSDictionary *)dic complicate:(Complicate)complicate modelClass:(Class)modelClass{
     
     [self.manager GET:urlString parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        //解析
+    //解析
     if([modelClass isSubclassOfClass:[CurrentPageModel class]]){
+        NSArray *array = responseObject[@"issueList"];
         
-        CurrentPageModel *currentModel = [[self anlysisData:responseObject modelClass:modelClass]firstObject];
-
-//        NSLog(@"%@", currentModel);
+       CurrentPageModel *currentModel = [[CurrentPageModel alloc]initWithDictionary:[array firstObject] error:nil];
         
         complicate(YES,currentModel);
         
@@ -51,15 +49,12 @@
         //直接返回二进制
         complicate(YES,responseObject);
         
-        
     }else if([modelClass isSubclassOfClass:[ListModel class]]){
         
          NSArray *array = responseObject[@"itemList"];
         
         NSArray *listArray = [ListModel arrayOfModelsFromDictionaries:array];
-        
-//         NSLog(@"%@", listArray);
-        
+
         complicate(YES, listArray);
     }
     }
@@ -72,20 +67,5 @@
     
 }
 
-/**
- *  解析
- *
- *  @param responseObject 请求得到的二进制数据
- *
- *  @return 数组
- */
--(NSArray *)anlysisData:(id) responseObject modelClass:(Class)modelClass{
-    
-    NSArray *array = responseObject[@"issueList"];
-    
-    //改动了一下 ,如果下回崩了可以找这里
-    return [modelClass arrayOfModelsFromDictionaries:array];
-
-}
 
 @end

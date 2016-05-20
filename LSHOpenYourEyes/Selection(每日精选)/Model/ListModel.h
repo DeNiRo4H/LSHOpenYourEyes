@@ -9,15 +9,15 @@
 #import "BaseModel.h"
 #import "VideoModel.h"
 
-@protocol VideoModel<NSObject>
-
-@end
+//@protocol VideoModel<NSObject>
+//
+//@end
 
 @interface ListModel : BaseModel
 
 @property(nonatomic, copy)NSString *type;
 
-@property(nonatomic, strong)VideoModel <Optional,ConvertOnDemand,VideoModel>*data;
+@property(nonatomic, strong)VideoModel <Optional> *data;
 
 
 @end

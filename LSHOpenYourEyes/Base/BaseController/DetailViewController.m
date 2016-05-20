@@ -13,11 +13,8 @@
 #import "LSHView.h"
 #import "LSHMoviePlayerViewController.h"
 #import "ConsumptionModel.h"
-
 #import "UMSocial.h"
 #import "CoraDataManager.h"
-
-
 
 @interface DetailViewController ()<LSHViewOnClickDelegate,LSHMoviePlayerViewControllerDelegate>
 {
@@ -45,6 +42,7 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
 
     self.tabBarController.tabBar.hidden = NO;
 }
@@ -98,8 +96,7 @@
     }
     
     for(ListModel *list in array){
-
-        if([list.type isEqualToString:@"textHeader"]||[list.type isEqualToString:@"imageHeader"]||[list.type isEqualToString:@"campaign"]){
+            if(![list.type isEqualToString:@"video"]){
             continue;
         }else{
         
@@ -176,11 +173,7 @@
     ListModel *list1 = [[ListModel alloc]init];
     if(self.dataSource.count == 0){
      ListModel *list =[self.currentModel.itemList firstObject];
-    
-  
-//    VideoModel *video = [[VideoModel alloc]init];
-    //如果第一个类型为textHeader那么读取下一个
-    if([list.type isEqualToString:@"textHeader"] ||[list.type isEqualToString:@"imageHeader"]||[list.type isEqualToString:@"campaign"] ){
+    if(![list.type isEqualToString:@"video"]){
         list = self.currentModel.itemList[index+1];
     }else{
         list = self.currentModel.itemList[index];
@@ -212,7 +205,6 @@
          
          NSLog(@"推送完成");
      }];
-    
 }
 
 
@@ -249,18 +241,10 @@
         //从数据库中删除
         [CoraDataManager deleteModel:list];
     }
-
 }
 
 //新浪微博 豆瓣 等的分享
 -(void)viewOnClickWithShare:(UIButton *)button{
-
-    NSLog(@"点击分享");
-//    ZWUserOperationViewController *user = [[ZWUserOperationViewController alloc]init];
-//    [self presentViewController:user animated:YES completion:^{
-//        
-//    }];
-    
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:@"568485cfe0f55a04ae004a51"
                                       shareText:@"你要分享的文字"
@@ -271,10 +255,7 @@
 
 -(void)viewOnClickWithDownLoad:(UIButton *)button{
     NSLog(@"点击下载");
-
-
 }
-
 
 //电影结束之后会调用的协议方法
 -(void)moviePlayerDidFinished
@@ -283,7 +264,5 @@
    [self dismissViewControllerAnimated:YES completion:^{
    }];
 }
-
-
 
 @end

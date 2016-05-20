@@ -7,6 +7,7 @@
 //
 
 #import "SelectionCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation SelectionCell
 
@@ -14,19 +15,20 @@
 -(void)setModel:(VideoModel *)model{
 
     _model = model;
-    [self.image setImageWithURL:[NSURL URLWithString:_model.cover.feed]];
+
+    [self.image sd_setImageWithURL:[NSURL URLWithString:model.cover.feed] placeholderImage:[UIImage imageNamed:@"placeHoder.jpg"]];
     
     self.image.layer.cornerRadius = 8;
     self.image.layer.masksToBounds = YES;
     
-    self.title.text = _model.title;
+    self.title.text = model.title;
     
     
-    NSInteger minute = [_model.duration integerValue] / 60;
+    NSInteger minute = [model.duration integerValue] / 60;
     
-    NSInteger second = [_model.duration integerValue] % 60;
+    NSInteger second = [model.duration integerValue] % 60;
     
-    self.info.text = [NSString stringWithFormat:@"#%@ / %ld\' %ld\" ",_model.category,minute,second];
+    self.info.text = [NSString stringWithFormat:@"#%@ / %ld\' %ld\" ",model.category,minute,second];
 }
 
 

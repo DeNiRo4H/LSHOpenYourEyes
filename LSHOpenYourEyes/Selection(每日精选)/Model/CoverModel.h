@@ -15,9 +15,9 @@
 
 @interface CoverModel : BaseModel
 
-@property(nonatomic, copy)NSString *feed;
-@property(nonatomic, copy)NSString *detail;
-@property(nonatomic, copy)NSString *blurred;
-@property(nonatomic, copy)NSString *sharing;
+@property(nonatomic, copy)NSString<Optional> *feed;
+@property(nonatomic, copy)NSString<Optional> *detail;
+@property(nonatomic, copy)NSString<Optional> *blurred;
+@property(nonatomic, copy)NSString<Optional> *sharing;
 
 @end
