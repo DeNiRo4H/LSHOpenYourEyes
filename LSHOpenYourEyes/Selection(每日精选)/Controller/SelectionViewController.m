@@ -178,6 +178,7 @@ static NSString *cellID = @"cellID";
             //刷新tableView
             [self.tableView reloadData];
         }else{
+            NSLog(@"-------");
             if(_pageFlag > 1){
               _pageFlag--;
             }
@@ -197,18 +198,14 @@ static NSString *cellID = @"cellID";
 //    NSString *type = currentPageModel.type;//nomal 或者weekendExtra//campaign
     
     NSArray *array = currentPageModel.itemList;
-    
-    ListModel *firstList = [array firstObject];
-    ListModel *lastList = [array lastObject];
     int count = 0;
-    if(!([firstList.type isEqualToString:@"video"])){
-        count++;
+    for(ListModel *list in array){
+        if(!([list.type isEqualToString:@"video"])){
+            count++;
+        }
     }
-    if (!([lastList.type isEqualToString:@"video"])){
-        count++;
-    }
-
     
+
     return array.count - count;
 }
 
@@ -327,20 +324,21 @@ static NSString *cellID = @"cellID";
     ListModel *list = [[ListModel alloc]init];
     
     //得到列表第一个model
-    ListModel *firstList = currentPageModel.itemList[0];
+    NSArray *array = currentPageModel.itemList;
+    int count = 0;
+
+    for(int i =0; i<array.count-1;i++){
+        ListModel *list = array[i];
+        if(!([list.type isEqualToString:@"video"])){
+            count++;
+        }
+    }
     
     //获得每组显示的列表
-   //如果列表中第一个为textHeader 从第二个开始
-//    if([firstList.type isEqualToString:@"textHeader"]||[firstList.type isEqualToString:@"imageHeader"]||[firstList.type isEqualToString:@"campaign"]||[firstList.type isEqualToString:@"banner1"]){
-    if(![firstList.type isEqualToString:@"video"]){
-        list = currentPageModel.itemList[indexPath.row +1];
-    }else{
-         list = currentPageModel.itemList[indexPath.row];
-    }
+
+    list = currentPageModel.itemList[indexPath.row+count];
     VideoModel *model = list.data;
     cell.model = model;
-    
-    
 
     //cell被选中的风格
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
