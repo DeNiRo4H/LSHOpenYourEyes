@@ -15,6 +15,7 @@
 #import "ConsumptionModel.h"
 #import "UMSocial.h"
 #import "CoraDataManager.h"
+#import "AppDelegate.h"
 
 @interface DetailViewController ()<LSHViewOnClickDelegate,LSHMoviePlayerViewControllerDelegate>
 {
@@ -34,26 +35,29 @@
 
 @implementation DetailViewController
 
+//视图将要显示时候
+
 -(void)viewWillAppear:(BOOL)animated{
-   
     [super viewWillAppear:animated];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.allowRotation = NO;
     //隐藏
     self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-
     self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-   
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self addScrollViewData];
+    
     
 }
 
@@ -262,7 +266,24 @@
 {
     //谁申请谁释放  将当前模态视图控制器释放
    [self dismissViewControllerAnimated:YES completion:^{
+       
+       //转屏
+       if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+           SEL selector = NSSelectorFromString(@"setOrientation:");
+           NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+           [invocation setSelector:selector];
+           [invocation setTarget:[UIDevice currentDevice]];
+           int val = UIInterfaceOrientationPortrait;//横屏
+           [invocation setArgument:&val atIndex:2];
+           [invocation invoke];
+       }
+       
    }];
+
 }
+
+
+
+
 
 @end

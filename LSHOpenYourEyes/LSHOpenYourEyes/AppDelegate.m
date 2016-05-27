@@ -18,10 +18,17 @@
 
 @implementation AppDelegate
 
+-(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if (self.allowRotation) {
+        return UIInterfaceOrientationMaskAll;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
+  
     
      //创建数据库
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"MYVedio.sqlite"];
@@ -78,5 +85,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [MagicalRecord cleanUp];
 }
+
+
+
 
 @end

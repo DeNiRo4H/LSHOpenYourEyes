@@ -8,6 +8,7 @@
 
 #import "LSHMoviePlayerViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "AppDelegate.h"
 
 @interface LSHMoviePlayerViewController ()
 
@@ -34,9 +35,16 @@
 -(void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
-    self.moviePlayer.fullscreen = YES;//全屏
     
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.allowRotation = YES;
+    
+    [super viewDidAppear:animated];
+    self.moviePlayer.fullscreen = YES;//全屏
 }
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,13 +71,18 @@
   播放完成
  */
 -(void)finished{
-  
+    
+   
+    
+ 
+   
     //1 .删除通知监听(一定记得:因为通知中心很耗内存)
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     //2. 返回上一级窗体,谁申请谁释放的原则
     if ([self.delegate respondsToSelector:@selector(moviePlayerDidFinished)]) {
         [self.delegate moviePlayerDidFinished];
     }
+    
 }
 
 
@@ -103,6 +116,21 @@
 
 
 
+
+//- (UIInterfaceOrientationMask)application:(UIApplication *)application{
+// 
+//    return UIInterfaceOrientationMaskLandscapeLeft|UIInterfaceOrientationMaskLandscapeRight|UIInterfaceOrientationMaskPortrait;
+//}
+
+
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+//    
+//    return UIInterfaceOrientationMaskLandscapeLeft;
+//    
+//}
+//- (BOOL)shouldAutorotate{
+//    return YES;
+//}
 
 
 

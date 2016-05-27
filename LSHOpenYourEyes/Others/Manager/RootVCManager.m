@@ -27,7 +27,7 @@
 @implementation RootVCManager
 
 
-+(UIViewController *)rootVC{
++ (UIViewController *)rootVC{
     
     //类名数组
     NSArray *array = @[@"SelectionViewController",@"SpecialViewController",@"HotRenkingViewController"];
@@ -54,7 +54,7 @@
         [view addSubview:titleLabel];
          na.navigationItem.titleView = view;
         
-        
+         
         
         //        item.title = @"返回";
 //        na.tabBarItem.leftBarButtonItem = item1;
@@ -117,6 +117,9 @@
     NSLog(@"点击了item");
 
 }
+
+
+
 
 
 @end
